@@ -1,19 +1,18 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import "react-native-gesture-handler";
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { Root } from "./src/components/Root";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import { ChatUserList } from "./src/components/chat/ChatUserList";
+
+const { Navigator, Screen } = createDrawerNavigator();
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-    </View>
-  );
+    return (
+        <NavigationContainer>
+            <Navigator initialRouteName="Root" drawerContent={ChatUserList}>
+                <Screen name="Root" component={Root} options={{ swipeEnabled: false }} />
+            </Navigator>
+        </NavigationContainer>
+    );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
