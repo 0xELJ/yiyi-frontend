@@ -1,7 +1,7 @@
 import React from "react";
 import { TouchableOpacity } from "react-native";
 import { AntDesign as AntDesignIcon } from "@expo/vector-icons";
-import { ButtonProps } from "../../types/button.props";
+import { ButtonProps } from "../../types/ButtonProps";
 
 export const ChatMenuButton: React.FC<ButtonProps> = (props) => {
     return (

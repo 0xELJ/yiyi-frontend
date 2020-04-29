@@ -2,35 +2,43 @@ import React from 'react';
 import { Text, View, Modal, StyleSheet } from 'react-native';
 import { Section } from './Section';
 import { Button } from './Button';
-import { ConfirmModalProps } from "../../types/confirm-modal.props";
+import { ConfirmModalProps } from "../../types/ConfirmModalProps";
 
 export const ConfirmModal: React.FC<ConfirmModalProps> = props => {
-  const { visible, children, onAccept, onDecline, onRequestClose = () => {} } = props;
+  const { visible, onAccept, header, body, accept, onRequestClose = () => {} } = props;
 
   return (
       <Modal
           visible={visible}
           animationType="slide"
-          onRequestClose={onRequestClose}
-          transparent>
+          onRequestClose={onRequestClose}>
         <View style={styles.containerStyle}>
-          <Section style={styles.cardSectionStyle}>
-            <Text style={styles.textStyle}>{children}</Text>
-          </Section>
-          <Section>
-            <Button onPress={onAccept}>Yes</Button>
-            <Button onPress={onDecline}>No</Button>
-          </Section>
+          <View style={styles.content}>
+            <Section style={styles.header}>
+              <Text style={[styles.bodyText, styles.headerText]}>{header}</Text>
+            </Section>
+            <Section>
+              <Text style={styles.bodyText}>{body}</Text>
+            </Section>
+            <Section>
+              <Button onPress={onAccept}>{accept}</Button>
+            </Section>
+          </View>
         </View>
       </Modal>
   );
 };
 
 const styles = StyleSheet.create({
-  cardSectionStyle: {
-    justifyContent: 'center'
+  header: {
+    borderBottomColor: 'rgba(0 , 0, 0, 0.1)',
+    borderBottomWidth: 1
   },
-  textStyle: {
+  headerText: {
+    fontSize: 24,
+    fontWeight: '500'
+  },
+  bodyText: {
     flex: 1,
     fontSize: 18,
     textAlign: 'center',
@@ -40,6 +48,13 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.75)',
     position: 'relative',
     flex: 1,
-    justifyContent: 'center'
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  content: {
+    width: '80%',
+    padding: 8,
+    borderRadius: 8,
+    backgroundColor: '#fff'
   }
 });

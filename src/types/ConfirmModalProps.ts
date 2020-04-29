@@ -1,6 +1,8 @@
 export interface ConfirmModalProps {
     visible: boolean;
+    header: string,
+    body: string,
+    accept: string;
     onAccept(): any;
-    onDecline(): any;
     onRequestClose?(): any;
 }

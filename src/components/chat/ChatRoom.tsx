@@ -1,78 +1,65 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text } from "react-native";
+import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Container } from "../shared/Container";
 import { Section } from "../shared/Section";
 import { InputField } from "../shared/InputField";
+import { MaterialIcons } from "@expo/vector-icons";
+import { connect } from "react-redux";
+import { ChatState } from "../../types/ChatState";
+import { Message } from "../../types/Message";
+import { messageChanged, sendMessage } from "../../actions";
 
-export const ChatRoom = () => {
+const ChatRoom: React.FC<any> = (props) => {
+    const ChatMessageList = () => {
+        if (props.chat.messages && props.chat.messages.length) {
+            return props.chat.messages.map((message: Message, index: number) => {
+                return (
+                    <View key={message.createdAt + index}>
+                        <Text>{message.username}</Text>
+                        <Text>{message.message}</Text>
+                        <Text>{message.createdAt}</Text>
+                    </View>
+                );
+            });
+        }
+
+        return null;
+    };
+
+    const sendMessage = () => {
+        props.sendMessage(props.chat.message);
+        props.messageChanged('');
+    };
+
     return (
-        <Container style={styles.container}>
+        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : undefined} keyboardVerticalOffset={60}>
+            <Container style={styles.container}>
             <Section style={styles.messages}>
                 <ScrollView>
-                    <Text>Chat Messages!</Text>
-                    <Text>Chat Messages!</Text>
-                    <Text>Chat Messages!</Text>
-                    <Text>Chat Messages!</Text>
-                    <Text>Chat Messages!</Text>
-                    <Text>Chat Messages!</Text>
-                    <Text>Chat Messages!</Text>
-                    <Text>Chat Messages!</Text>
-                    <Text>Chat Messages!</Text>
-                    <Text>Chat Messages!</Text>
-                    <Text>Chat Messages!</Text>
-                    <Text>Chat Messages!</Text>
-                    <Text>Chat Messages!</Text>
-                    <Text>Chat Messages!</Text>
-                    <Text>Chat Messages!</Text>
-                    <Text>Chat Messages!</Text>
-                    <Text>Chat Messages!</Text>
-                    <Text>Chat Messages!</Text>
-                    <Text>Chat Messages!</Text>
-                    <Text>Chat Messages!</Text>
-                    <Text>Chat Messages!</Text>
-                    <Text>Chat Messages!</Text>
-                    <Text>Chat Messages!</Text>
-                    <Text>Chat Messages!</Text>
-                    <Text>Chat Messages!</Text>
-                    <Text>Chat Messages!</Text>
-                    <Text>Chat Messages!</Text>
-                    <Text>Chat Messages!</Text>
-                    <Text>Chat Messages!</Text>
-                    <Text>Chat Messages!</Text>
-                    <Text>Chat Messages!</Text>
-                    <Text>Chat Messages!</Text>
-                    <Text>Chat Messages!</Text>
-                    <Text>Chat Messages!</Text>
-                    <Text>Chat Messages!</Text>
-                    <Text>Chat Messages!</Text>
-                    <Text>Chat Messages!</Text>
-                    <Text>Chat Messages!</Text>
-                    <Text>Chat Messages!</Text>
-                    <Text>Chat Messages!</Text>
-                    <Text>Chat Messages!</Text>
-                    <Text>Chat Messages!</Text>
-                    <Text>Chat Messages!</Text>
-                    <Text>Chat Messages!</Text>
-                    <Text>Chat Messages!</Text>
-                    <Text>Chat Messages!</Text>
-                    <Text>Chat Messages!</Text>
-                    <Text>Chat Messages!</Text>
+                    {ChatMessageList()}
                 </ScrollView>
             </Section>
-            <Section style={styles.input}>
-                <InputField
-                    hideLabel={true}
-                    value=""
-                    placeholder="Mensaje"
-                    onChangeText={() => {}}
-                />
+            <Section style={styles.inputContainer}>
+                <View style={styles.input}>
+                    <InputField
+                        hideLabel={true}
+                        value={props.chat.message}
+                        placeholder="Mensaje"
+                        onChangeText={props.messageChanged}
+                    />
+                </View>
+                <TouchableOpacity onPress={sendMessage} style={styles.icon}>
+                    <MaterialIcons name="send" size={16} color="white" />
+                </TouchableOpacity>
             </Section>
-        </Container>
+            </Container>
+        </KeyboardAvoidingView>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
+        height: '100%',
         padding: 0,
         paddingTop: 16,
     },
@@ -83,9 +70,37 @@ const styles = StyleSheet.create({
         borderColor: 'rgba(0, 0, 0, 0.3)',
         borderRadius: 5,
     },
-    input: {
-        height: 80,
+    inputContainer: {
+        height: 100,
+        paddingTop: 16,
+        paddingBottom: 64,
         paddingHorizontal: 16,
-        backgroundColor: 'rgba(0, 0, 0, 0.1)'
+        justifyContent: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.08)',
+        marginBottom: 0,
+    },
+    input: {
+        flex: 1,
+        height: 40,
+        paddingHorizontal: 8,
+        backgroundColor: '#fff',
+        borderColor: 'rgba(0, 0, 0, 0.3)',
+        borderWidth: 1,
+        borderRadius: 100
+    },
+    icon: {
+        height: 40,
+        marginLeft: 8,
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingHorizontal: 16,
+        borderRadius: 100,
+        backgroundColor: 'blue'
     }
 });
+
+const mapStateToProps = (state: { chat: ChatState }) => {
+    return { chat: state.chat };
+};
+
+export default connect(mapStateToProps, { messageChanged, sendMessage  })(ChatRoom)

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { ButtonProps } from "../../types/button.props";
+import { ButtonProps } from "../../types/ButtonProps";
 
 export const Button: React.FC<ButtonProps> = ({ onPress, children }) => {
   return (

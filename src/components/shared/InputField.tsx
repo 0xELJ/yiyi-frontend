@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
-import { InputFieldProps } from "../../types/input-field.props";
+import { InputFieldProps } from "../../types/InputFieldProps";
 
 export const InputField: React.FC<InputFieldProps> = props => {
     const { label = '', hideLabel = false, onChangeText, value, placeholder, secureTextEntry } = props;

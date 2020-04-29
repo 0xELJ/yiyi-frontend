@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, ActivityIndicator, StyleSheet } from 'react-native';
-import { SpinnerProps } from "../../types/spinner.props";
+import { SpinnerProps } from "../../types/SpinnerProps";
 
 export const Spinner: React.FC<SpinnerProps> = ({ size }) => (
     <View style={styles.spinnerStyle}>

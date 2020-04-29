@@ -5,17 +5,28 @@ import { Section } from "../shared/Section";
 import { InputField } from "../shared/InputField";
 import { Spinner } from "../shared/Spinner";
 import { Button } from "../shared/Button";
+import { connect } from "react-redux";
+import { AuthState } from "../../types/AuthState";
+import { joinToRoom, roomChanged, usernameChanged } from "../../actions";
 
-export const LoginForm: React.FC<any> = (props) => {
+interface LoginFormProps {
+    navigation: any,
+    auth: AuthState,
+    usernameChanged(): any,
+    roomChanged(): any,
+    joinToRoom(): any
+}
+
+const LoginForm: React.FC<any> = (props) => {
     const showError = () => {
-        if (props.error) {
-            return <Text style={styles.error}>{props.error}</Text>
+        if (props.auth.error) {
+            return <Text style={styles.error}>{props.auth.error}</Text>
         }
         return null;
     };
 
     const showButton = () => {
-        if (props.loading) {
+        if (props.auth.loading) {
             return <Spinner size="small" />;
         }
         return (
@@ -26,7 +37,9 @@ export const LoginForm: React.FC<any> = (props) => {
     };
 
     const onLogin = () => {
-      props.navigation.navigate('Chat');
+        const room = { username: props.auth.username, room: props.auth.room };
+        props.joinToRoom(room);
+        props.navigation.navigate('Chat');
     };
 
     return (
@@ -34,17 +47,17 @@ export const LoginForm: React.FC<any> = (props) => {
           <Section>
               <InputField
                   label="Usuario"
-                  value=""
+                  value={props.auth.username}
                   placeholder="Nombre de usuario"
-                  onChangeText={() => {}}
+                  onChangeText={props.usernameChanged}
               />
           </Section>
           <Section>
               <InputField
                   label="Sala"
-                  value=""
+                  value={props.auth.room}
                   placeholder="Sala"
-                  onChangeText={() => {}}
+                  onChangeText={props.roomChanged}
               />
           </Section>
           {showError()}
@@ -54,6 +67,16 @@ export const LoginForm: React.FC<any> = (props) => {
       </Container>
     );
 };
+
+const mapStateToProps = (state: { auth: AuthState }) => {
+    return { auth: state.auth };
+};
+
+export default connect(mapStateToProps, {
+    usernameChanged,
+    roomChanged,
+    joinToRoom
+})(LoginForm);
 
 const styles = StyleSheet.create({
     title: {

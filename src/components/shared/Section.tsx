@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { ContainerProps } from "../../types/container.props";
+import { ContainerProps } from "../../types/ContainerProps";
 
 export const Section: React.FC<ContainerProps> = ({ children, style }) => (
     <View style={[styles.containerStyle, style]}>
