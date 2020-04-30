@@ -6,26 +6,10 @@ import { InputField } from "../shared/InputField";
 import { MaterialIcons } from "@expo/vector-icons";
 import { connect } from "react-redux";
 import { ChatState } from "../../types/ChatState";
-import { Message } from "../../types/Message";
 import { messageChanged, sendMessage } from "../../actions";
+import { ChatMessageList } from "./ChatMessageList";
 
 const ChatRoom: React.FC<any> = (props) => {
-    const ChatMessageList = () => {
-        if (props.chat.messages && props.chat.messages.length) {
-            return props.chat.messages.map((message: Message, index: number) => {
-                return (
-                    <View key={message.createdAt + index}>
-                        <Text>{message.username}</Text>
-                        <Text>{message.message}</Text>
-                        <Text>{message.createdAt}</Text>
-                    </View>
-                );
-            });
-        }
-
-        return null;
-    };
-
     const sendMessage = () => {
         props.sendMessage(props.chat.message);
         props.messageChanged('');
@@ -35,9 +19,7 @@ const ChatRoom: React.FC<any> = (props) => {
         <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : undefined} keyboardVerticalOffset={60}>
             <Container style={styles.container}>
             <Section style={styles.messages}>
-                <ScrollView>
-                    {ChatMessageList()}
-                </ScrollView>
+                <ChatMessageList messages={props.chat.messages} />
             </Section>
             <Section style={styles.inputContainer}>
                 <View style={styles.input}>
@@ -103,4 +85,4 @@ const mapStateToProps = (state: { chat: ChatState }) => {
     return { chat: state.chat };
 };
 
-export default connect(mapStateToProps, { messageChanged, sendMessage  })(ChatRoom)
+export default connect(mapStateToProps, { messageChanged, sendMessage })(ChatRoom)

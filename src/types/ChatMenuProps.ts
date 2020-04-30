@@ -1,7 +1,7 @@
-import { DrawerContentComponentProps } from "@react-navigation/drawer/lib/typescript/src/types";
 import { ChatState } from "./ChatState";
 
-export interface ChatMenuProps extends DrawerContentComponentProps{
+export interface ChatMenuProps {
+    navigation: any;
     chat: ChatState,
     leaveRoom(room: string): any,
     listenForRoomData(): any,
