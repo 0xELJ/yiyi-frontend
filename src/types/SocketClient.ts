@@ -11,13 +11,19 @@ export class SocketClient {
         this.socket = io.connect(host, { path: socketPath });
         return new Promise((resolve, reject) => {
             this.socket.on(ChatEvent.CONNECT, () => resolve());
-            this.socket.on(ChatEvent.CONNECT_ERROR, (error: any) => reject(error));
+            this.socket.on(ChatEvent.RECONNECT, () => resolve());
+            this.socket.on(ChatEvent.RECONNECTING, (attempt: number) => {
+                if (attempt > 5) {
+                    this.disconnect();
+                    reject(new Error('Error al establecer conexion con el servidor'));
+                }
+            });
         });
     }
 
     disconnect() {
         return new Promise((resolve) => {
-            this.socket.close();
+            this.socket = this.socket.disconnect();
             this.socket.on(ChatEvent.DISCONNECT, () => resolve());
         });
     }

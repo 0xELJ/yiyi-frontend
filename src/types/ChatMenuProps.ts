@@ -2,9 +2,9 @@ import { DrawerContentComponentProps } from "@react-navigation/drawer/lib/typesc
 import { ChatState } from "./ChatState";
 
 export interface ChatMenuProps extends DrawerContentComponentProps{
-    disconnect(): any,
-    listenForRoomData(): any,
     chat: ChatState,
+    leaveRoom(room: string): any,
+    listenForRoomData(): any,
     messageChanged(): any;
     sendMessage(): any
 }

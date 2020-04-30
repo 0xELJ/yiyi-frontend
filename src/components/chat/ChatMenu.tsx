@@ -4,13 +4,13 @@ import { connect } from "react-redux";
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer'
 import { Button } from "../shared/Button";
 import { Section } from "../shared/Section";
-import { disconnect } from "../../actions"
+import { leaveRoom } from "../../actions"
 import { ChatState } from "../../types/ChatState";
 import { ChatMenuProps } from "../../types/ChatMenuProps";
 
 const ChatMenu: React.FC<ChatMenuProps> = props => {
     const logout = () => {
-        props.disconnect();
+        props.leaveRoom(props.chat.activeRoom.room);
         props.navigation.navigate('Login');
     };
 
@@ -39,7 +39,7 @@ const mapStateToProps = (state: { chat: ChatState }) => {
     return { chat: state.chat };
 };
 
-export default connect(mapStateToProps, { disconnect })(ChatMenu);
+export default connect(mapStateToProps, { leaveRoom })(ChatMenu);
 
 const styles = StyleSheet.create({
     header: {

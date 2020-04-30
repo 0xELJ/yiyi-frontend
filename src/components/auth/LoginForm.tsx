@@ -37,8 +37,8 @@ const LoginForm: React.FC<any> = (props) => {
     };
 
     const onLogin = () => {
-        const room = { username: props.auth.username, room: props.auth.room };
-        props.joinToRoom(room);
+        const user = { username: props.auth.username, room: props.auth.room };
+        props.joinToRoom(user);
         props.navigation.navigate('Chat');
     };
 

@@ -15,7 +15,8 @@ export function socketReducer(state = INITIAL_STATE, action: Action): SocketStat
         case ActionTypes.SOCKET_CONNECT_PENDING:
             return {
                 ...state,
-                isConnecting: true
+                isConnecting: true,
+                connectionError: ''
             };
         case ActionTypes.SOCKET_CONNECT_SUCCESS:
             return {

@@ -21,7 +21,7 @@ const Root: React.FC<RootProps> = (props) => {
     }, []);
 
     useEffect(() => {
-        if (props.socket.connectionError) {
+        if (props.socket.connectionError && props.socket.connectionError.length) {
             setShowModal(true);
         }
         if (props.socket.isConnected) {

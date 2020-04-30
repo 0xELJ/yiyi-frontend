@@ -28,6 +28,8 @@ export function chatReducer(state = INITIAL_STATE, action: Action): ChatState {
                 ...state,
                 message: action.payload
             };
+        case ActionTypes.SOCKET_LEAVE_ROOM_SUCCESS:
+            return { ...INITIAL_STATE };
         default:
             return state;
     }

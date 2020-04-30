@@ -1,6 +1,7 @@
 export enum ChatEvent {
     CONNECT = 'connect',
-    CONNECT_ERROR = 'connect_error',
+    RECONNECT = 'reconnect',
+    RECONNECTING = 'reconnecting',
     DISCONNECT = 'disconnect',
     MESSAGE = 'message',
     SEND_MESSAGE = 'sendMessage',

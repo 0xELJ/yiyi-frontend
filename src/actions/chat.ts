@@ -52,9 +52,9 @@ export function sendMessage(message: Message) {
     }
 }
 
-export const messageChanged = (message: string) => {
+export function messageChanged(message: string) {
     return {
         type: ActionTypes.CHAT_MESSAGE_CHANGED,
         payload: message
     };
-};
+}
