@@ -10,11 +10,17 @@ export function connect(): Action {
             ActionTypes.SOCKET_CONNECT_SUCCESS,
             ActionTypes.SOCKET_CONNECT_ERROR
         ],
-        promise: (socket: SocketClient) => socket.connect()
+        promise: (socket: SocketClient) => socket.connect(),
+        error: {
+            header: 'Sin conexión',
+            body: 'Ocurrió un error al conectarse con el servidor',
+            acceptLabel: 'Entendido',
+            onAccept: () => {}
+        }
     }
 }
 
-export function disconnect() {
+export function disconnect(): Action {
     return {
         type: 'socket',
         types: [

@@ -2,16 +2,16 @@ import React from 'react';
 import { Text, View, Modal, StyleSheet } from 'react-native';
 import { Section } from './Section';
 import { Button } from './Button';
-import { ConfirmModalProps } from "../../types/ConfirmModalProps";
+import { ConfirmModalState } from "../../types/ConfirmModalState";
 
-export const ConfirmModal: React.FC<ConfirmModalProps> = props => {
-  const { visible, onAccept, header, body, accept, onRequestClose = () => {} } = props;
+export const ConfirmModal: React.FC<ConfirmModalState> = props => {
+  const { visible, onAccept, header, body, acceptLabel, onClose = () => {} } = props;
 
   return (
       <Modal
           visible={visible}
           animationType="slide"
-          onRequestClose={onRequestClose}>
+          onRequestClose={onClose}>
         <View style={styles.containerStyle}>
           <View style={styles.content}>
             <Section style={styles.header}>
@@ -21,7 +21,7 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = props => {
               <Text style={styles.bodyText}>{body}</Text>
             </Section>
             <Section>
-              <Button onPress={onAccept}>{accept}</Button>
+              <Button onPress={onAccept}>{acceptLabel}</Button>
             </Section>
           </View>
         </View>

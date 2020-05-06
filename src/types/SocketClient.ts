@@ -13,7 +13,7 @@ export class SocketClient {
             this.socket.on(ChatEvent.CONNECT, () => resolve());
             this.socket.on(ChatEvent.RECONNECT, () => resolve());
             this.socket.on(ChatEvent.RECONNECTING, (attempt: number) => {
-                if (attempt > 5) {
+                if (attempt > 4) {
                     this.disconnect();
                     reject(new Error('Error al establecer conexion con el servidor'));
                 }
@@ -28,7 +28,7 @@ export class SocketClient {
         });
     }
 
-    emit(event: string, data: any) {
+    emit(event: ChatEvent, data: any) {
         return new Promise((resolve, reject) => {
             if (this.socket.disconnected) return reject('No socket connection.');
 
@@ -41,7 +41,7 @@ export class SocketClient {
         });
     }
 
-    on(event: string, callback: Function) {
+    on(event: ChatEvent, callback: Function) {
         return new Promise((resolve, reject) => {
             if (this.socket.disconnected) {
                 return reject('No socket connection.')

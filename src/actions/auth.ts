@@ -2,6 +2,7 @@ import { ActionTypes } from "../types/ActionTypes";
 import { User } from "../types/User";
 import { SocketClient } from "../types/SocketClient";
 import { ChatEvent } from "../types/ChatEvent";
+import { Action } from "../types/Action";
 
 export const usernameChanged = (username: string) => {
     return {
@@ -17,7 +18,7 @@ export const roomChanged = (room: string) => {
     };
 };
 
-export function joinToRoom(user: User) {
+export function joinToRoom(user: User): Action {
     return {
         type: 'socket',
         types: [
@@ -25,7 +26,13 @@ export function joinToRoom(user: User) {
             ActionTypes.AUTH_JOIN_ROOM_SUCCESS,
             ActionTypes.AUTH_JOIN_ROOM_ERROR,
         ],
-        promise: (socket: SocketClient) => socket.emit(ChatEvent.JOIN_ROOM, user)
+        promise: (socket: SocketClient) => socket.emit(ChatEvent.JOIN_ROOM, user),
+        error: {
+            header: 'Invalid Username',
+            body: 'The username is in use',
+            acceptLabel: 'Got it',
+            onAccept: () => {}
+        },
     }
 }
 
