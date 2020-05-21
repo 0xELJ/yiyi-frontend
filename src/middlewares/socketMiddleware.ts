@@ -1,5 +1,6 @@
 import { SocketClient } from "../types/SocketClient";
 import { ActionTypes } from "../constants/ActionTypes";
+import { AppError } from '../types/AppError';
 
 export function socketMiddleware(socket: SocketClient) {
     // @ts-ignore
@@ -21,7 +22,7 @@ export function socketMiddleware(socket: SocketClient) {
             .then((result: any) => {
                 return next({ ...rest, payload: result, type: SUCCESS });
             })
-            .catch((error: any) => {
+            .catch((error: AppError) => {
                 const errorMessage = action?.error ? action.error : error;
                 next({ type: ActionTypes.MODAL_SHOW, payload: errorMessage });
                 return next({ ...rest, payload: error, type: FAILURE });

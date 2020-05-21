@@ -22,7 +22,7 @@ export default function App() {
     return (
         <Provider store={store}>
             <NavigationContainer>
-                <Navigator initialRouteName="Root" drawerContent={props => <ChatMenu {...props} />}>
+                <Navigator initialRouteName="Root" drawerContent={ChatMenu}>
                     <Screen name="Root" component={Root} options={{ swipeEnabled: false }}/>
                 </Navigator>
             </NavigationContainer>

@@ -8,9 +8,10 @@ import { connect } from "react-redux";
 import { ChatState } from "../../types/ChatState";
 import { messageChanged, sendMessage } from "../../actions";
 import { ChatMessageList } from "./ChatMessageList";
+import { ChatRoomProps } from '../../types/ChatRoomProps';
 
-const ChatRoom: React.FC<any> = (props) => {
-    const sendMessage = () => {
+const ChatRoom: React.FC<ChatRoomProps> = (props) => {
+    const onSendMessage = () => {
         props.sendMessage(props.chat.message);
         props.messageChanged('');
     };
@@ -30,7 +31,7 @@ const ChatRoom: React.FC<any> = (props) => {
                             onChangeText={props.messageChanged}
                         />
                     </View>
-                    <TouchableOpacity onPress={sendMessage} style={styles.icon}>
+                    <TouchableOpacity onPress={onSendMessage} style={styles.icon}>
                         <MaterialIcons name="send" size={16} color="white" />
                     </TouchableOpacity>
                 </Section>
@@ -85,4 +86,4 @@ const mapStateToProps = (state: { chat: ChatState }) => {
     return { chat: state.chat };
 };
 
-export default connect(mapStateToProps, { messageChanged, sendMessage })(ChatRoom)
+export default connect(mapStateToProps, { messageChanged, sendMessage })(ChatRoom);

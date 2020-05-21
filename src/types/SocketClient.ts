@@ -1,16 +1,15 @@
 import io from "socket.io-client";
 import { ChatEvent } from "../constants/ChatEvent";
-import { ActionError } from './ActionError';
+import { AppError } from './AppError';
 
 const host = 'http://192.168.0.3:3000';
 const socketPath = '/socket.io';
 
 export class SocketClient {
     private socket!: SocketIOClient.Socket;
-    private readonly connectionError: ActionError = {
+    private readonly connectionError: AppError = {
         header: 'Connection error',
-        body: 'Could not establish connection with the server',
-        acceptLabel: 'Got it'
+        body: 'Could not establish connection with the server'
     };
 
     connect() {
@@ -19,7 +18,6 @@ export class SocketClient {
             this.socket.on(ChatEvent.CONNECT, () => resolve());
             this.socket.on(ChatEvent.RECONNECT, () => resolve());
             this.socket.on(ChatEvent.RECONNECTING, (attempt: number) => {
-                console.log('attempt: ', attempt)
                 if (attempt > 2) {
                     this.disconnect();
                     reject(this.connectionError);
@@ -40,8 +38,9 @@ export class SocketClient {
             if (this.socket.disconnected) {
                 reject(this.connectionError);
             }
-            return this.socket.emit(event, data, (error: string) => {
-                if (error) {
+            return this.socket.emit(event, data, (errorMsg: string) => {
+                if (errorMsg) {
+                    const error: AppError = { header: 'Server error', body: errorMsg };
                     reject(error);
                 }
                 resolve();
@@ -52,7 +51,7 @@ export class SocketClient {
     on(event: ChatEvent, callback: Function) {
         return new Promise((resolve, reject) => {
             if (this.socket.disconnected) {
-                return reject(this.connectionError)
+                reject(this.connectionError)
             }
             this.socket.on(event, callback);
             resolve();

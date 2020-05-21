@@ -1,6 +1,5 @@
-export interface ActionError {
+export interface AppError {
     header: string,
     body: string,
-    acceptLabel: string
     onAccept?(): any
 }

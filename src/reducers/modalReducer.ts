@@ -6,7 +6,6 @@ const INITIAL_STATE: ConfirmModalState = {
     visible: false,
     header: '',
     body: '',
-    acceptLabel: '',
     onAccept: () => {},
     onClose: () => {}
 };
@@ -19,7 +18,6 @@ export function modalReducer(state = INITIAL_STATE, action: Action): ConfirmModa
                 visible: true,
                 header: action.payload.header,
                 body: action.payload.body,
-                acceptLabel: action.payload.acceptLabel,
             };
         case ActionTypes.MODAL_CLOSE:
             return INITIAL_STATE;

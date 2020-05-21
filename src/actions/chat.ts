@@ -40,7 +40,7 @@ export function listenForMessage() {
 
 }
 
-export function sendMessage(message: Message) {
+export function sendMessage(message: string) {
     return {
         type: 'socket',
         types: [

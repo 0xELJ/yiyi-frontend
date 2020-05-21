@@ -13,7 +13,7 @@ import ModalGenerator from "./shared/ModalGenerator";
 const { Navigator, Screen } = createStackNavigator();
 
 const Root: React.FC<RootProps> = (props) => {
-    const [showSpinner, setShowSpinner] = useState(false);
+    const [showSpinner, setShowSpinner] = useState<boolean>(false);
 
     useEffect(() => {
         props.connectSocket();
