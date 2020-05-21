@@ -1,5 +1,5 @@
-import { ActionTypes } from "../types/ActionTypes";
-import { ChatEvent } from "../types/ChatEvent";
+import { ActionTypes } from "../constants/ActionTypes";
+import { ChatEvent } from "../constants/ChatEvent";
 import { RoomData } from "../types/RoomData";
 import { Message } from "../types/Message";
 import { SocketClient } from "../types/SocketClient";
@@ -40,7 +40,7 @@ export function listenForMessage() {
 
 }
 
-export function sendMessage(message: Message) {
+export function sendMessage(message: string) {
     return {
         type: 'socket',
         types: [

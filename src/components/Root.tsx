@@ -7,23 +7,19 @@ import { connect } from "react-redux";
 import { connect as connectSocket, listenForMessage, listenForRoomData } from "../actions";
 import { SocketState } from "../types/SocketState";
 import { Spinner } from "./shared/Spinner";
-import { ConfirmModal } from "./shared/ConfirmModal";
 import { RootProps } from "../types/RootProps";
+import ModalGenerator from "./shared/ModalGenerator";
 
 const { Navigator, Screen } = createStackNavigator();
 
 const Root: React.FC<RootProps> = (props) => {
-    const [showModal, setShowModal] = useState(false);
-    const [showSpinner, setShowSpinner] = useState(false);
+    const [showSpinner, setShowSpinner] = useState<boolean>(false);
 
     useEffect(() => {
         props.connectSocket();
     }, []);
 
     useEffect(() => {
-        if (props.socket.connectionError && props.socket.connectionError.length) {
-            setShowModal(true);
-        }
         if (props.socket.isConnected) {
             initSocketListeners();
         }
@@ -35,17 +31,12 @@ const Root: React.FC<RootProps> = (props) => {
         props.listenForMessage();
     };
 
-    const retryConnection = () => {
-        setShowModal(false);
-        props.connectSocket();
-    };
-
     const toggleChatMenu = () => {
         props.navigation.toggleDrawer();
     };
 
     if (showSpinner) {
-        return <Spinner size="large"/>;
+        return <Spinner size="large" />;
     }
 
     return (
@@ -69,18 +60,13 @@ const Root: React.FC<RootProps> = (props) => {
                     }}
                 />
             </Navigator>
-            <ConfirmModal
-                visible={showModal}
-                header="Error"
-                body="Ocurrió un error al conectarse con el servidor"
-                accept="Reintentar"
-                onAccept={retryConnection} />
+            <ModalGenerator />
         </React.Fragment>
     );
 };
 
 const mapStateToProps = (state: { socket: SocketState }) => {
-    return { socket: state.socket }
+    return { socket: state.socket };
 };
 
 export default connect(mapStateToProps, { connectSocket, listenForRoomData, listenForMessage })(Root);

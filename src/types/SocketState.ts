@@ -1,7 +1,5 @@
 export interface SocketState {
-    isConnecting: boolean,
-    connectionError: string,
-    isDisconnecting: boolean,
-    disconnectionError: string | Error,
+    isConnecting: boolean;
+    connectionError: string;
     isConnected: boolean;
 }

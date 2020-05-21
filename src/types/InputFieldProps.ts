@@ -4,5 +4,5 @@ export interface InputFieldProps {
     placeholder: string;
     secureTextEntry?: boolean;
     hideLabel?: boolean;
-    onChangeText(): any;
+    onChangeText(text: string): any;
 }

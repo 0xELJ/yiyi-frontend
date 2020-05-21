@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text } from "react-native";
 import { Container } from "../shared/Container";
 import { Section } from "../shared/Section";
@@ -8,25 +8,28 @@ import { Button } from "../shared/Button";
 import { connect } from "react-redux";
 import { AuthState } from "../../types/AuthState";
 import { joinToRoom, roomChanged, usernameChanged } from "../../actions";
+import { LoginFormProps } from "../../types/LoginFormProps";
+import { RequestStatus } from '../../constants/RequestStatus';
 
-interface LoginFormProps {
-    navigation: any,
-    auth: AuthState,
-    usernameChanged(): any,
-    roomChanged(): any,
-    joinToRoom(): any
-}
+const LoginForm: React.FC<LoginFormProps> = (props) => {
+    const [formError, setFormError] = useState<string>('');
 
-const LoginForm: React.FC<any> = (props) => {
+    useEffect(() => {
+        if (props.auth.status === RequestStatus.SUCCESSFUL) {
+            props.navigation.navigate('Chat');
+        }
+        setFormError('');
+    }, [props.auth.status]);
+
     const showError = () => {
-        if (props.auth.error) {
-            return <Text style={styles.error}>{props.auth.error}</Text>
+        if (formError) {
+            return <Text style={styles.error}>{formError}</Text>
         }
         return null;
     };
 
     const showButton = () => {
-        if (props.auth.loading) {
+        if (props.auth.status === RequestStatus.LOADING) {
             return <Spinner size="small" />;
         }
         return (
@@ -38,8 +41,12 @@ const LoginForm: React.FC<any> = (props) => {
 
     const onLogin = () => {
         const user = { username: props.auth.username, room: props.auth.room };
-        props.joinToRoom(user);
-        props.navigation.navigate('Chat');
+        if (!user.username || !user.room) {
+            setFormError('Username and room are required');
+            return;
+        } else {
+            props.joinToRoom(user);
+        }
     };
 
     return (

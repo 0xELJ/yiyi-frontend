@@ -1,6 +1,6 @@
 import { Action } from "../types/Action";
 import { ChatState } from "../types/ChatState";
-import { ActionTypes } from "../types/ActionTypes";
+import { ActionTypes } from "../constants/ActionTypes";
 
 const INITIAL_STATE: ChatState = {
     activeRoom: {
