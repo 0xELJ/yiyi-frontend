@@ -1,5 +1,5 @@
 import { Action } from "../types/Action";
-import { ActionTypes } from "../types/ActionTypes";
+import { ActionTypes } from "../constants/ActionTypes";
 import { ConfirmModalState } from "../types/ConfirmModalState";
 
 const INITIAL_STATE: ConfirmModalState = {
@@ -20,7 +20,6 @@ export function modalReducer(state = INITIAL_STATE, action: Action): ConfirmModa
                 header: action.payload.header,
                 body: action.payload.body,
                 acceptLabel: action.payload.acceptLabel,
-                onAccept: action.payload.onAccept,
             };
         case ActionTypes.MODAL_CLOSE:
             return INITIAL_STATE;

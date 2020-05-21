@@ -1,4 +1,4 @@
-import { ActionTypes } from "../types/ActionTypes";
+import { ActionTypes } from "../constants/ActionTypes";
 
 export function showModal() {}
 

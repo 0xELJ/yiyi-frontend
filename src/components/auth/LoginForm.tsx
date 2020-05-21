@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text } from "react-native";
 import { Container } from "../shared/Container";
 import { Section } from "../shared/Section";
@@ -9,19 +9,27 @@ import { connect } from "react-redux";
 import { AuthState } from "../../types/AuthState";
 import { joinToRoom, roomChanged, usernameChanged } from "../../actions";
 import { LoginFormProps } from "../../types/LoginFormProps";
+import { RequestStatus } from '../../constants/RequestStatus';
 
 const LoginForm: React.FC<LoginFormProps> = (props) => {
-    const [authError, setAuthError] = useState('');
+    const [formError, setFormError] = useState<string>('');
+
+    useEffect(() => {
+        if (props.auth.status === RequestStatus.SUCCESSFUL) {
+            props.navigation.navigate('Chat');
+        }
+        setFormError('');
+    }, [props.auth.status]);
 
     const showError = () => {
-        if (authError) {
-            return <Text style={styles.error}>{authError}</Text>
+        if (formError) {
+            return <Text style={styles.error}>{formError}</Text>
         }
         return null;
     };
 
     const showButton = () => {
-        if (props.auth.loading) {
+        if (props.auth.status === RequestStatus.LOADING) {
             return <Spinner size="small" />;
         }
         return (
@@ -34,12 +42,10 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
     const onLogin = () => {
         const user = { username: props.auth.username, room: props.auth.room };
         if (!user.username || !user.room) {
-            setAuthError('Username and room are required');
+            setFormError('Username and room are required');
             return;
         } else {
             props.joinToRoom(user);
-            props.navigation.navigate('Chat');
-            setAuthError('');
         }
     };
 

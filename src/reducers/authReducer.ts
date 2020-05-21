@@ -1,11 +1,12 @@
 import { Action } from "../types/Action";
 import { AuthState } from "../types/AuthState";
-import { ActionTypes } from "../types/ActionTypes";
+import { ActionTypes } from "../constants/ActionTypes";
+import { RequestStatus } from '../constants/RequestStatus';
 
 const INITIAL_STATE: AuthState = {
     username: '',
     room: '',
-    loading: false,
+    status: RequestStatus.PENDING,
     error: ''
 };
 
@@ -24,21 +25,21 @@ export function authReducer(state = INITIAL_STATE, action: Action): AuthState {
         case ActionTypes.AUTH_JOIN_ROOM_PENDING:
             return {
                 ...state,
-                loading: true,
+                status: RequestStatus.LOADING,
                 error: ''
             };
         case ActionTypes.AUTH_JOIN_ROOM_SUCCESS:
             return {
                 ...state,
-                loading: false,
+                status: RequestStatus.SUCCESSFUL,
                 username: '',
                 room: '',
             };
         case ActionTypes.AUTH_JOIN_ROOM_ERROR:
             return {
                 ...state,
-                loading: false,
-                error: ''
+                status: RequestStatus.FAILED,
+                error: action.payload
             };
         default:
             return state;
