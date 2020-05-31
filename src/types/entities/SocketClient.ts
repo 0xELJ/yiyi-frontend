@@ -1,8 +1,9 @@
 import io from "socket.io-client";
-import { ChatEvent } from "../constants/ChatEvent";
+import { ChatEvent } from "../../constants/ChatEvent";
 import { AppError } from './AppError';
+import { ResponseMessage } from './ResponseMessage';
 
-const host = 'http://192.168.0.3:3000';
+const host = 'http://192.168.0.16:5000';
 const socketPath = '/socket.io';
 
 export class SocketClient {
@@ -33,15 +34,15 @@ export class SocketClient {
         });
     }
 
-    emit(event: ChatEvent, data: any) {
+    emit(event: ChatEvent, eventData: any) {
         return new Promise((resolve, reject) => {
             if (this.socket.disconnected) {
                 reject(this.connectionError);
             }
-            return this.socket.emit(event, data, (errorMsg: string) => {
-                if (errorMsg) {
-                    const error: AppError = { header: 'Server error', body: errorMsg };
-                    reject(error);
+            return this.socket.emit(event, eventData, ({ error}: ResponseMessage) => {
+                if (error) {
+                    const appError: AppError = { header: 'Server error', body: error };
+                    reject(appError);
                 }
                 resolve();
             });

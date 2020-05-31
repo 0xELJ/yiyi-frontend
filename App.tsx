@@ -9,7 +9,7 @@ import { Provider } from "react-redux";
 import ReduxThunk from "redux-thunk";
 import { rootReducer } from "./src/reducers";
 import { socketMiddleware } from "./src/middlewares/socketMiddleware";
-import { SocketClient } from "./src/types/SocketClient";
+import { SocketClient } from "./src/types/entities/SocketClient";
 import Moment from "react-moment";
 import 'moment-timezone';
 
@@ -22,7 +22,7 @@ export default function App() {
     return (
         <Provider store={store}>
             <NavigationContainer>
-                <Navigator initialRouteName="Root" drawerContent={ChatMenu}>
+                <Navigator initialRouteName="Root" drawerContent={props => <ChatMenu {...props} /> }>
                     <Screen name="Root" component={Root} options={{ swipeEnabled: false }}/>
                 </Navigator>
             </NavigationContainer>

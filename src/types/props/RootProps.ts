@@ -1,5 +1,5 @@
-import { SocketState } from "./SocketState";
-import { ConfirmModalState } from "./ConfirmModalState";
+import { SocketState } from "../states/SocketState";
+import { ConfirmModalState } from "../states/ConfirmModalState";
 
 export interface RootProps {
     navigation: any,

@@ -1,6 +1,6 @@
-import { SocketClient } from "../types/SocketClient";
+import { SocketClient } from "../types/entities/SocketClient";
 import { ActionTypes } from "../constants/ActionTypes";
-import { AppError } from '../types/AppError';
+import { AppError } from '../types/entities/AppError';
 
 export function socketMiddleware(socket: SocketClient) {
     // @ts-ignore

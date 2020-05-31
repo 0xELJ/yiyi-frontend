@@ -1,12 +1,13 @@
 import React from "react";
-import { StyleSheet, Text } from "react-native";
+import { Text } from "react-native";
 import { connect } from "react-redux";
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer'
 import { Button } from "../shared/Button";
 import { Section } from "../shared/Section";
 import { leaveRoom } from "../../actions"
-import { ChatState } from "../../types/ChatState";
-import { ChatMenuProps } from "../../types/ChatMenuProps";
+import { ChatState } from "../../types/states/ChatState";
+import { ChatMenuProps } from "../../types/props/ChatMenuProps";
+import { chatMenu } from '../../styles/components/chat/chatMenu';
 
 const ChatMenu: React.FC<ChatMenuProps> = props => {
     const logout = () => {
@@ -23,7 +24,7 @@ const ChatMenu: React.FC<ChatMenuProps> = props => {
     return (
         <DrawerContentScrollView>
             <Section style={{ marginTop: 20, paddingLeft: 16 }}>
-                <Text style={styles.header}>Sala "{props.chat.activeRoom.room}"</Text>
+                <Text style={chatMenu.header}>Sala "{props.chat.activeRoom.room}"</Text>
             </Section>
             {userList()}
             <Section style={{ marginTop: 16, paddingHorizontal: 64 }}>
@@ -40,12 +41,3 @@ const mapStateToProps = (state: { chat: ChatState }) => {
 };
 
 export default connect(mapStateToProps, { leaveRoom })(ChatMenu);
-
-const styles = StyleSheet.create({
-    header: {
-        flex: 1,
-        fontSize: 16,
-        fontWeight: '700',
-        lineHeight: 40,
-    }
-});

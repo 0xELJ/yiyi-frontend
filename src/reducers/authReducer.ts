@@ -1,5 +1,5 @@
-import { Action } from "../types/Action";
-import { AuthState } from "../types/AuthState";
+import { Action } from "../types/entities/Action";
+import { AuthState } from "../types/states/AuthState";
 import { ActionTypes } from "../constants/ActionTypes";
 import { RequestStatus } from '../constants/RequestStatus';
 

@@ -1,8 +1,8 @@
 import { ActionTypes } from "../constants/ActionTypes";
-import { User } from "../types/User";
-import { SocketClient } from "../types/SocketClient";
+import { User } from "../types/entities/User";
+import { SocketClient } from "../types/entities/SocketClient";
 import { ChatEvent } from "../constants/ChatEvent";
-import { Action } from "../types/Action";
+import { Action } from "../types/entities/Action";
 
 export const usernameChanged = (username: string) => {
     return {

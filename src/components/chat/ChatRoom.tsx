@@ -1,14 +1,15 @@
 import React from 'react';
-import { KeyboardAvoidingView, Platform, StyleSheet, TouchableOpacity, View } from "react-native";
+import { KeyboardAvoidingView, Platform, TouchableOpacity, View } from "react-native";
 import { Container } from "../shared/Container";
 import { Section } from "../shared/Section";
 import { InputField } from "../shared/InputField";
 import { MaterialIcons } from "@expo/vector-icons";
 import { connect } from "react-redux";
-import { ChatState } from "../../types/ChatState";
+import { ChatState } from "../../types/states/ChatState";
 import { messageChanged, sendMessage } from "../../actions";
 import { ChatMessageList } from "./ChatMessageList";
-import { ChatRoomProps } from '../../types/ChatRoomProps';
+import { ChatRoomProps } from '../../types/props/ChatRoomProps';
+import { chatRoom } from '../../styles/components/chat/chatRoom';
 
 const ChatRoom: React.FC<ChatRoomProps> = (props) => {
     const onSendMessage = () => {
@@ -18,12 +19,12 @@ const ChatRoom: React.FC<ChatRoomProps> = (props) => {
 
     return (
         <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : undefined} keyboardVerticalOffset={60}>
-            <Container style={styles.container}>
-                <Section style={styles.messages}>
+            <Container style={chatRoom.container}>
+                <Section style={chatRoom.messages}>
                     <ChatMessageList messages={props.chat.messages} />
                 </Section>
-                <Section style={styles.inputContainer}>
-                    <View style={styles.input}>
+                <Section style={chatRoom.inputContainer}>
+                    <View style={chatRoom.input}>
                         <InputField
                             hideLabel={true}
                             value={props.chat.message}
@@ -31,7 +32,7 @@ const ChatRoom: React.FC<ChatRoomProps> = (props) => {
                             onChangeText={props.messageChanged}
                         />
                     </View>
-                    <TouchableOpacity onPress={onSendMessage} style={styles.icon}>
+                    <TouchableOpacity onPress={onSendMessage} style={chatRoom.icon}>
                         <MaterialIcons name="send" size={16} color="white" />
                     </TouchableOpacity>
                 </Section>
@@ -39,48 +40,6 @@ const ChatRoom: React.FC<ChatRoomProps> = (props) => {
         </KeyboardAvoidingView>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        height: '100%',
-        padding: 0,
-        paddingTop: 16,
-    },
-    messages: {
-        flex: 1,
-        marginHorizontal: 16,
-        borderWidth: 1,
-        borderColor: 'rgba(0, 0, 0, 0.3)',
-        borderRadius: 5,
-    },
-    inputContainer: {
-        height: 100,
-        paddingTop: 16,
-        paddingBottom: 64,
-        paddingHorizontal: 16,
-        justifyContent: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.08)',
-        marginBottom: 0,
-    },
-    input: {
-        flex: 1,
-        height: 40,
-        paddingHorizontal: 8,
-        backgroundColor: '#fff',
-        borderColor: 'rgba(0, 0, 0, 0.3)',
-        borderWidth: 1,
-        borderRadius: 100
-    },
-    icon: {
-        height: 40,
-        marginLeft: 8,
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingHorizontal: 16,
-        borderRadius: 100,
-        backgroundColor: 'blue'
-    }
-});
 
 const mapStateToProps = (state: { chat: ChatState }) => {
     return { chat: state.chat };

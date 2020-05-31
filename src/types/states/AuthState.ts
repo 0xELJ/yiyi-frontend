@@ -1,4 +1,4 @@
-import { RequestStatus } from '../constants/RequestStatus';
+import { RequestStatus } from '../../constants/RequestStatus';
 
 export interface AuthState {
     username: string;

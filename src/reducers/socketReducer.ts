@@ -1,6 +1,6 @@
 import { ActionTypes } from "../constants/ActionTypes";
-import { Action } from "../types/Action";
-import { SocketState } from "../types/SocketState";
+import { Action } from "../types/entities/Action";
+import { SocketState } from "../types/states/SocketState";
 
 const INITIAL_STATE: SocketState = {
     isConnecting: false,

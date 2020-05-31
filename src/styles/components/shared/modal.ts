@@ -1,0 +1,31 @@
+import { StyleSheet } from 'react-native';
+
+export const modal = StyleSheet.create({
+    header: {
+        borderBottomColor: 'rgba(0 , 0, 0, 0.1)',
+        borderBottomWidth: 1
+    },
+    headerText: {
+        fontSize: 24,
+        fontWeight: '500'
+    },
+    bodyText: {
+        flex: 1,
+        fontSize: 18,
+        textAlign: 'center',
+        lineHeight: 40
+    },
+    containerStyle: {
+        backgroundColor: 'rgba(0, 0, 0, 0.75)',
+        position: 'relative',
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    content: {
+        width: '80%',
+        padding: 8,
+        borderRadius: 8,
+        backgroundColor: '#fff'
+    }
+});

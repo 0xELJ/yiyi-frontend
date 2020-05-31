@@ -1,19 +1,12 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { ContainerProps } from "../../types/ContainerProps";
+import { View } from 'react-native';
+import { ContainerProps } from "../../types/props/ContainerProps";
+import { container } from '../../styles/components/shared/container';
 
 export const Container: React.FC<ContainerProps> = ({ children, style }) => {
     return (
-        <View style={[styles.containerStyle, style]}>
+        <View style={[container.base, style]}>
             {children}
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    containerStyle: {
-        height: '100%',
-        backgroundColor: '#fff',
-        padding: 16
-    }
-});

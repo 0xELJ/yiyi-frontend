@@ -5,10 +5,10 @@ import LoginForm from "./auth/LoginForm";
 import { ChatMenuButton } from "./chat/ChatMenuButton";
 import { connect } from "react-redux";
 import { connect as connectSocket, listenForMessage, listenForRoomData } from "../actions";
-import { SocketState } from "../types/SocketState";
+import { SocketState } from "../types/states/SocketState";
 import { Spinner } from "./shared/Spinner";
-import { RootProps } from "../types/RootProps";
-import ModalGenerator from "./shared/ModalGenerator";
+import { RootProps } from "../types/props/RootProps";
+import ModalGenerator from "./layout/ModalGenerator";
 
 const { Navigator, Screen } = createStackNavigator();
 

@@ -1,5 +1,5 @@
-import { Action } from "../types/Action";
-import { ChatState } from "../types/ChatState";
+import { Action } from "../types/entities/Action";
+import { ChatState } from "../types/states/ChatState";
 import { ActionTypes } from "../constants/ActionTypes";
 
 const INITIAL_STATE: ChatState = {

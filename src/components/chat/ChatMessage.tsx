@@ -1,6 +1,6 @@
 import React from "react";
 import { Text, View } from "react-native";
-import { Message } from "../../types/Message";
+import { Message } from "../../types/entities/Message";
 import Moment from "react-moment";
 
 export const ChatMessage: React.FC<Message> = (props) => {

@@ -1,5 +1,5 @@
-import { AuthState } from "./AuthState";
-import { User } from "./User";
+import { AuthState } from "../states/AuthState";
+import { User } from "../entities/User";
 
 export interface LoginFormProps {
     navigation: any,

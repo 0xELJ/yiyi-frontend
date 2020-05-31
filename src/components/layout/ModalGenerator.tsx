@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { hideModal } from "../../actions";
-import { ConfirmModalState } from "../../types/ConfirmModalState";
-import { ConfirmModal } from "./ConfirmModal";
+import { ConfirmModalState } from "../../types/states/ConfirmModalState";
+import { ConfirmModal } from "../shared/ConfirmModal";
 
 const ModalGenerator: React.FC<{ modal: ConfirmModalState, hideModal(): void }> = props => {
     const handleOnAccept = () => {
@@ -15,7 +15,6 @@ const ModalGenerator: React.FC<{ modal: ConfirmModalState, hideModal(): void }> 
             visible={props.modal.visible}
             header={props.modal.header}
             body={props.modal.body}
-            acceptLabel={props.modal.acceptLabel}
             onAccept={handleOnAccept}
         />
     );

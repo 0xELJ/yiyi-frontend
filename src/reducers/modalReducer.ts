@@ -1,6 +1,6 @@
-import { Action } from "../types/Action";
+import { Action } from "../types/entities/Action";
 import { ActionTypes } from "../constants/ActionTypes";
-import { ConfirmModalState } from "../types/ConfirmModalState";
+import { ConfirmModalState } from "../types/states/ConfirmModalState";
 
 const INITIAL_STATE: ConfirmModalState = {
     visible: false,

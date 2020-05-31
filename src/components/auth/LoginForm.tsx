@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text } from "react-native";
+import { Text } from "react-native";
 import { Container } from "../shared/Container";
 import { Section } from "../shared/Section";
 import { InputField } from "../shared/InputField";
 import { Spinner } from "../shared/Spinner";
 import { Button } from "../shared/Button";
 import { connect } from "react-redux";
-import { AuthState } from "../../types/AuthState";
+import { AuthState } from "../../types/states/AuthState";
 import { joinToRoom, roomChanged, usernameChanged } from "../../actions";
-import { LoginFormProps } from "../../types/LoginFormProps";
+import { LoginFormProps } from "../../types/props/LoginFormProps";
 import { RequestStatus } from '../../constants/RequestStatus';
+import { loginForm } from '../../styles/components/auth/loginForm';
 
 const LoginForm: React.FC<LoginFormProps> = (props) => {
     const [formError, setFormError] = useState<string>('');
@@ -23,7 +24,7 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
 
     const showError = () => {
         if (formError) {
-            return <Text style={styles.error}>{formError}</Text>
+            return <Text style={loginForm.error}>{formError}</Text>
         }
         return null;
     };
@@ -84,16 +85,3 @@ export default connect(mapStateToProps, {
     roomChanged,
     joinToRoom
 })(LoginForm);
-
-const styles = StyleSheet.create({
-    title: {
-        fontSize: 20,
-        textAlign: 'center',
-        lineHeight: 40
-    },
-    error: {
-        fontSize: 20,
-        alignSelf: 'center',
-        color: 'red'
-    }
-});

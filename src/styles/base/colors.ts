@@ -1,0 +1,3 @@
+export const primaryColor = '#ffffff';
+export const secondaryColor = '#f5f5f5';
+// TODO: Add global variables here...

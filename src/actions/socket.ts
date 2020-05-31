@@ -1,6 +1,6 @@
 import { ActionTypes } from "../constants/ActionTypes";
-import { SocketClient } from "../types/SocketClient";
-import { Action } from "../types/Action";
+import { SocketClient } from "../types/entities/SocketClient";
+import { Action } from "../types/entities/Action";
 
 export function connect(): Action {
     return {

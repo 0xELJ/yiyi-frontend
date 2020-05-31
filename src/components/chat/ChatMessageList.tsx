@@ -1,5 +1,5 @@
 import React from "react";
-import { Message } from "../../types/Message";
+import { Message } from "../../types/entities/Message";
 import { ChatMessage } from "./ChatMessage";
 import { FlatList } from "react-native";
 

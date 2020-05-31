@@ -1,4 +1,4 @@
-import { ChatState } from './ChatState';
+import { ChatState } from '../states/ChatState';
 
 export interface ChatRoomProps {
     chat: ChatState;
