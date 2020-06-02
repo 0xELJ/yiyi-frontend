@@ -1,87 +1,72 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Text } from "react-native";
+import { Formik, FormikHelpers } from 'formik';
 import { Container } from "../shared/Container";
 import { Section } from "../shared/Section";
 import { InputField } from "../shared/InputField";
 import { Spinner } from "../shared/Spinner";
 import { Button } from "../shared/Button";
-import { connect } from "react-redux";
-import { AuthState } from "../../types/states/AuthState";
-import { joinToRoom, roomChanged, usernameChanged } from "../../actions";
-import { LoginFormProps } from "../../types/props/LoginFormProps";
-import { RequestStatus } from '../../constants/RequestStatus';
-import { loginForm } from '../../styles/components/auth/loginForm';
+import { LoginFormProps } from '../../types/props/LoginFormProps';
+import { LoginData } from '../../types/entities/LoginData';
+import { validateLogin } from '../../utils/validateLogin';
 
-const LoginForm: React.FC<LoginFormProps> = (props) => {
-    const [formError, setFormError] = useState<string>('');
+const LoginForm: React.FC<LoginFormProps> = ({ isSubmitting, onSubmit }) => {
+    const initialValues: LoginData = { username: '', room: '' };
 
-    useEffect(() => {
-        if (props.auth.status === RequestStatus.SUCCESSFUL) {
-            props.navigation.navigate('Chat');
-        }
-        setFormError('');
-    }, [props.auth.status]);
-
-    const showError = () => {
-        if (formError) {
-            return <Text style={loginForm.error}>{formError}</Text>
-        }
-        return null;
-    };
-
-    const showButton = () => {
-        if (props.auth.status === RequestStatus.LOADING) {
+    const showButton = (handleSubmit: () => void) => {
+        if (isSubmitting) {
             return <Spinner size="small" />;
         }
         return (
-            <Button onPress={onLogin}>
+            <Button onPress={handleSubmit}>
                 <Text>Unirse</Text>
             </Button>
         );
     };
 
-    const onLogin = () => {
-        const user = { username: props.auth.username, room: props.auth.room };
-        if (!user.username || !user.room) {
-            setFormError('Username and room are required');
-            return;
-        } else {
-            props.joinToRoom(user);
-        }
+    const onLogin = (values: LoginData, { resetForm }: FormikHelpers<LoginData>) => {
+        onSubmit(values);
+        resetForm();
+    };
+
+    const handleChangeText = (value: string, setFieldValue: (field: string, value: any) => any, field: string) => {
+        const parsedValue = value.toLowerCase().replace(/ /g,'');
+        setFieldValue(field, parsedValue);
     };
 
     return (
       <Container>
-          <Section>
-              <InputField
-                  label="Usuario"
-                  value={props.auth.username}
-                  placeholder="Nombre de usuario"
-                  onChangeText={props.usernameChanged}
-              />
-          </Section>
-          <Section>
-              <InputField
-                  label="Sala"
-                  value={props.auth.room}
-                  placeholder="Sala"
-                  onChangeText={props.roomChanged}
-              />
-          </Section>
-          {showError()}
-          <Section style={{ marginTop: 90, paddingHorizontal: 64 }}>
-              {showButton()}
-          </Section>
+          <Formik initialValues={initialValues} onSubmit={onLogin} validate={validateLogin} validateOnBlur={false}>
+              {({ handleSubmit, values, setFieldValue, handleBlur, touched, errors }) => (
+                  <>
+                      <Section>
+                          <InputField
+                              value={values.username}
+                              placeholder="Username"
+                              onChangeText={value => handleChangeText(value, setFieldValue, 'username')}
+                              onBlur={handleBlur('username')}
+                              touched={touched.username}
+                              error={errors.username}
+                          />
+                      </Section>
+                      <Section>
+                          <InputField
+                              value={values.room}
+                              placeholder="Room"
+                              onChangeText={value => handleChangeText(value, setFieldValue, 'room')}
+                              onBlur={handleBlur('room')}
+                              touched={touched.room}
+                              error={errors.room}
+                          />
+                      </Section>
+                      <Section style={{ marginTop: 90, paddingHorizontal: 64 }}>
+                          {showButton(handleSubmit)}
+                      </Section>
+                  </>
+              )}
+          </Formik>
       </Container>
     );
 };
 
-const mapStateToProps = (state: { auth: AuthState }) => {
-    return { auth: state.auth };
-};
-
-export default connect(mapStateToProps, {
-    usernameChanged,
-    roomChanged,
-    joinToRoom
-})(LoginForm);
+export default LoginForm;

@@ -4,26 +4,27 @@ import { InputFieldProps } from "../../types/props/InputFieldProps";
 import { inputField } from '../../styles/components/shared/inputField';
 
 export const InputField: React.FC<InputFieldProps> = props => {
-    const { label = '', hideLabel = false, onChangeText, value, placeholder, secureTextEntry } = props;
+    const { onChangeText, onBlur, value, placeholder, secureTextEntry, touched, error } = props;
 
-    const renderLabel = () => {
-        if (hideLabel) {
-            return null;
+    const renderError = () => {
+        if (touched && error) {
+            return <Text style={inputField.inputError}>{error}</Text>
         }
-        return <Text style={inputField.label}>{label}</Text>;
+        return null;
     };
 
     return (
         <View style={inputField.container}>
-            {renderLabel()}
             <TextInput
-                secureTextEntry={secureTextEntry}
+                secureTextEntry={secureTextEntry || false}
                 autoCorrect={false}
                 placeholder={placeholder}
                 value={value}
                 onChangeText={onChangeText}
+                onBlur={onBlur}
                 style={inputField.input}
             />
+            {renderError()}
         </View>
     );
 };

@@ -4,24 +4,12 @@ import { ActionTypes } from "../constants/ActionTypes";
 import { RequestStatus } from '../constants/RequestStatus';
 
 const INITIAL_STATE: AuthState = {
-    username: '',
-    room: '',
     status: RequestStatus.PENDING,
     error: ''
 };
 
 export function authReducer(state = INITIAL_STATE, action: Action): AuthState {
     switch (action.type) {
-        case ActionTypes.AUTH_USERNAME_CHANGED:
-            return {
-                ...state,
-                username: action.payload
-            };
-        case ActionTypes.AUTH_ROOM_CHANGED:
-            return {
-                ...state,
-                room: action.payload
-            };
         case ActionTypes.AUTH_JOIN_ROOM_PENDING:
             return {
                 ...state,
@@ -32,8 +20,6 @@ export function authReducer(state = INITIAL_STATE, action: Action): AuthState {
             return {
                 ...state,
                 status: RequestStatus.SUCCESSFUL,
-                username: '',
-                room: '',
             };
         case ActionTypes.AUTH_JOIN_ROOM_ERROR:
             return {

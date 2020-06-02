@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ChatRoom from "./chat/ChatRoom";
+import Login from './auth/Login';
 import { createStackNavigator } from "@react-navigation/stack";
-import LoginForm from "./auth/LoginForm";
 import { ChatMenuButton } from "./chat/ChatMenuButton";
 import { connect } from "react-redux";
 import { connect as connectSocket, listenForMessage, listenForRoomData } from "../actions";
@@ -44,7 +44,7 @@ const Root: React.FC<RootProps> = (props) => {
             <Navigator initialRouteName="Login">
                 <Screen
                     name="Login"
-                    component={LoginForm}
+                    component={Login}
                     options={{
                         title: 'Registro',
                         gestureEnabled: false,

@@ -4,5 +4,4 @@ import { RoomData } from "../entities/RoomData";
 export interface ChatState {
     activeRoom: RoomData;
     messages: Message[];
-    message: string;
 }

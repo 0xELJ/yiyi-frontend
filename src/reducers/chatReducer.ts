@@ -7,8 +7,7 @@ const INITIAL_STATE: ChatState = {
         room: '',
         users: []
     },
-    messages: [],
-    message: ''
+    messages: []
 };
 
 export function chatReducer(state = INITIAL_STATE, action: Action): ChatState {
@@ -22,11 +21,6 @@ export function chatReducer(state = INITIAL_STATE, action: Action): ChatState {
             return {
                 ...state,
                 messages: [...state.messages, action.payload]
-            };
-        case ActionTypes.CHAT_MESSAGE_CHANGED:
-            return {
-                ...state,
-                message: action.payload
             };
         case ActionTypes.SOCKET_LEAVE_ROOM_SUCCESS:
             return { ...INITIAL_STATE };

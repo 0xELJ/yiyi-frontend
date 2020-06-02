@@ -4,9 +4,9 @@ export const inputField = StyleSheet.create({
     container: {
         height: 45,
         flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center'
+        flexDirection: 'column',
+        // justifyContent: 'center',
+        // alignItems: 'center'
     },
     input: {
         color: '#000',
@@ -15,6 +15,11 @@ export const inputField = StyleSheet.create({
         fontSize: 18,
         lineHeight: 20,
         flex: 2
+    },
+    inputError: {
+        fontSize: 20,
+        alignSelf: 'center',
+        color: 'red'
     },
     label: {
         fontSize: 18,
