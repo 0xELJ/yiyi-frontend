@@ -12,6 +12,8 @@ import { socketMiddleware } from "./src/middlewares/socketMiddleware";
 import { SocketClient } from "./src/types/entities/SocketClient";
 import Moment from "react-moment";
 import 'moment-timezone';
+import { useFonts, FiraSans_400Regular, FiraSans_600SemiBold } from '@expo-google-fonts/fira-sans';
+import { AppLoading } from 'expo';
 
 Moment.globalTimezone = 'America/Mexico_City';
 const socket = new SocketClient();
@@ -19,6 +21,15 @@ const store = createStore(rootReducer, {}, applyMiddleware(ReduxThunk, socketMid
 const { Navigator, Screen } = createDrawerNavigator();
 
 export default function App() {
+    const [fontsLoaded] = useFonts({
+        FiraSansRegular: FiraSans_400Regular,
+        FiraSansSemiBold: FiraSans_600SemiBold
+    });
+
+    if (!fontsLoaded) {
+        return <AppLoading />;
+    }
+
     return (
         <Provider store={store}>
             <NavigationContainer>

@@ -46,9 +46,8 @@ const Root: React.FC<RootProps> = (props) => {
                     name="Login"
                     component={Login}
                     options={{
-                        title: 'Registro',
                         gestureEnabled: false,
-                        headerLeft: () => null
+                        headerShown: false
                     }}
                 />
                 <Screen
