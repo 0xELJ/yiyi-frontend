@@ -3,7 +3,8 @@ import { ChatEvent } from "../../constants/ChatEvent";
 import { AppError } from './AppError';
 import { ResponseMessage } from './ResponseMessage';
 
-const host = 'http://192.168.0.16:5000';
+// TODO: Create environments to store different hosts and socketPaths
+const host = 'http://192.168.0.7:5000';
 const socketPath = '/socket.io';
 
 export class SocketClient {
@@ -39,12 +40,12 @@ export class SocketClient {
             if (this.socket.disconnected) {
                 reject(this.connectionError);
             }
-            return this.socket.emit(event, eventData, ({ error}: ResponseMessage) => {
+            return this.socket.emit(event, eventData, ({ error, data}: ResponseMessage) => {
                 if (error) {
                     const appError: AppError = { header: 'Server error', body: error };
                     reject(appError);
                 }
-                resolve();
+                resolve(data);
             });
         });
     }

@@ -6,4 +6,5 @@ export interface InputFieldProps {
     onBlur(e: any): void;
     touched?: boolean;
     error?: string;
+    rounded?: boolean;
 }

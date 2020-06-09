@@ -9,6 +9,8 @@ import { SocketState } from "../types/states/SocketState";
 import { Spinner } from "./shared/Spinner";
 import { RootProps } from "../types/props/RootProps";
 import ModalGenerator from "./layout/ModalGenerator";
+import MainGradient from './shared/MainGradient';
+import { headerStyles } from '../styles/components/chat/chatHeaderStyles';
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -55,7 +57,12 @@ const Root: React.FC<RootProps> = (props) => {
                     component={ChatRoom}
                     options={{
                         gestureEnabled: false,
-                        headerLeft: () => <ChatMenuButton onPress={toggleChatMenu} />
+                        headerTitle: 'YiYi',
+                        headerTitleAlign: 'left',
+                        headerTitleStyle: headerStyles.title,
+                        headerBackground: () => <MainGradient style={headerStyles.background} />,
+                        headerRight: () => <ChatMenuButton onPress={toggleChatMenu} />,
+                        headerLeft: () => null,
                     }}
                 />
             </Navigator>

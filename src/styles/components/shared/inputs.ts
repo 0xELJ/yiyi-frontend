@@ -18,7 +18,7 @@ const dimensions: ViewStyle = {
 export const inputs = StyleSheet.create({
     base: {
         ...dimensions,
-        ...borders.greyLightOne
+        ...borders.greyLightOne,
     },
     error: {
         ...dimensions,
@@ -35,6 +35,9 @@ export const inputs = StyleSheet.create({
     selected: {
         ...dimensions,
         ...borders.greenDark
+    },
+    rounded: {
+        borderRadius: 100,
     },
 });
 

@@ -1,43 +1,31 @@
 import { StyleSheet } from 'react-native';
+import { colors } from '../../base/colors';
 
 export const chatRoom = StyleSheet.create({
     container: {
-        height: '100%',
-        padding: 0,
         paddingTop: 16,
+        marginHorizontal: 0,
+        paddingHorizontal: 15,
+        backgroundColor: colors.greyLightTwo
     },
     messages: {
         flex: 1,
-        marginHorizontal: 16,
-        borderWidth: 1,
-        borderColor: 'rgba(0, 0, 0, 0.3)',
-        borderRadius: 5,
     },
-    inputContainer: {
+    form: {
         height: 100,
         paddingTop: 16,
-        paddingBottom: 64,
-        paddingHorizontal: 16,
+        paddingBottom: 50,
         justifyContent: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.08)',
+        backgroundColor: colors.greyLightTwo,
         marginBottom: 0,
     },
-    input: {
-        flex: 1,
+    button: {
         height: 40,
-        paddingHorizontal: 8,
-        backgroundColor: '#fff',
-        borderColor: 'rgba(0, 0, 0, 0.3)',
-        borderWidth: 1,
-        borderRadius: 100
-    },
-    icon: {
-        height: 40,
-        marginLeft: 8,
         alignItems: 'center',
         justifyContent: 'center',
+        marginLeft: 12,
         paddingHorizontal: 16,
         borderRadius: 100,
-        backgroundColor: 'blue'
+        backgroundColor: colors.greenDark
     }
 });

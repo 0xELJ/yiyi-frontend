@@ -14,8 +14,11 @@ import Moment from "react-moment";
 import 'moment-timezone';
 import { useFonts, FiraSans_400Regular, FiraSans_600SemiBold } from '@expo-google-fonts/fira-sans';
 import { AppLoading } from 'expo';
+import { StatusBar } from 'react-native';
 
 Moment.globalTimezone = 'America/Mexico_City';
+StatusBar.setBarStyle('light-content', true);
+
 const socket = new SocketClient();
 const store = createStore(rootReducer, {}, applyMiddleware(ReduxThunk, socketMiddleware(socket)));
 const { Navigator, Screen } = createDrawerNavigator();
@@ -33,7 +36,10 @@ export default function App() {
     return (
         <Provider store={store}>
             <NavigationContainer>
-                <Navigator initialRouteName="Root" drawerContent={props => <ChatMenu {...props} /> }>
+                <Navigator
+                    initialRouteName="Root"
+                    drawerContent={props => <ChatMenu {...props} /> }
+                    drawerPosition="right">
                     <Screen name="Root" component={Root} options={{ swipeEnabled: false }}/>
                 </Navigator>
             </NavigationContainer>

@@ -1,8 +1,8 @@
 import { AuthState } from "../states/AuthState";
-import { User } from "../entities/User";
+import { LoginData } from '../entities/LoginData';
 
 export interface LoginProps {
     navigation: any;
     auth: AuthState;
-    joinToRoom(user: User): any;
+    joinToRoom(user: LoginData): any;
 }

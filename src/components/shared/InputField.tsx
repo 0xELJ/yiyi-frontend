@@ -5,7 +5,7 @@ import { inputContainer, errorText, inputs } from '../../styles/components/share
 import { typography } from '../../styles/base/typography';
 
 export const InputField: React.FC<InputFieldProps> = props => {
-    const { onChangeText, onBlur, value, placeholder, secureTextEntry, touched, error } = props;
+    const { onChangeText, onBlur, value, placeholder, secureTextEntry, touched, error, rounded = false } = props;
     const [hasError, setHasError] = useState(false);
 
     useEffect(() => {
@@ -16,6 +16,19 @@ export const InputField: React.FC<InputFieldProps> = props => {
         }
     }, [touched, error]);
 
+    const getInputStyles = () => {
+        let styles;
+        if (hasError) {
+            styles = inputs.error;
+        } else {
+            styles = inputs.base;
+        }
+        if (rounded) {
+            styles = { ...styles, ...inputs.rounded };
+        }
+        return styles;
+    };
+
     const renderError = () => {
         if (hasError) {
             return <Text style={errorText}>{error}</Text>
@@ -25,7 +38,7 @@ export const InputField: React.FC<InputFieldProps> = props => {
 
     return (
         <View style={inputContainer}>
-            <View style={hasError ? inputs.error : inputs.base}>
+            <View style={getInputStyles()}>
                 <TextInput
                     secureTextEntry={secureTextEntry || false}
                     autoCorrect={false}

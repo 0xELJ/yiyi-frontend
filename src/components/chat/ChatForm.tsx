@@ -19,15 +19,14 @@ const ChatForm: FC<{ onSubmit(message: MessageData): void; }> = props => {
         <Formik initialValues={initialValues} validate={validateMessage} onSubmit={handleSendMessage}>
             {({ handleSubmit, handleChange, values, handleBlur }) => (
                 <>
-                    <View style={chatRoom.input}>
-                        <InputField
-                            value={values.message}
-                            placeholder="Type a message"
-                            onChangeText={handleChange('message')}
-                            onBlur={handleBlur('message')}
-                        />
-                    </View>
-                    <TouchableOpacity onPress={() => handleSubmit()} style={chatRoom.icon}>
+                    <InputField
+                        rounded={true}
+                        value={values.message}
+                        placeholder="Type a message"
+                        onChangeText={handleChange('message')}
+                        onBlur={handleBlur('message')}
+                    />
+                    <TouchableOpacity onPress={() => handleSubmit()} style={chatRoom.button}>
                         <MaterialIcons name="send" size={16} color="white"/>
                     </TouchableOpacity>
                 </>

@@ -10,6 +10,7 @@ import { ChatRoomProps } from '../../types/props/ChatRoomProps';
 import { chatRoom } from '../../styles/components/chat/chatRoom';
 import { MessageData } from '../../types/entities/MessageData';
 import ChatForm from './ChatForm';
+import { AuthState } from '../../types/states/AuthState';
 
 const ChatRoom: React.FC<ChatRoomProps> = (props) => {
     const getKeyboardBehavior = () => {
@@ -28,9 +29,9 @@ const ChatRoom: React.FC<ChatRoomProps> = (props) => {
         <KeyboardAvoidingView behavior={getKeyboardBehavior()} keyboardVerticalOffset={60}>
             <Container style={chatRoom.container}>
                 <Section style={chatRoom.messages}>
-                    <ChatMessageList messages={props.chat.messages} />
+                    <ChatMessageList messages={props.chat.messages} currentUserId={props.userId} />
                 </Section>
-                <Section style={chatRoom.inputContainer}>
+                <Section style={chatRoom.form}>
                     <ChatForm onSubmit={onSendMessage}/>
                 </Section>
             </Container>
@@ -38,8 +39,8 @@ const ChatRoom: React.FC<ChatRoomProps> = (props) => {
     );
 };
 
-const mapStateToProps = (state: { chat: ChatState }) => {
-    return { chat: state.chat };
+const mapStateToProps = (state: { chat: ChatState, auth: AuthState }) => {
+    return { chat: state.chat, userId: state.auth.currentUser.id };
 };
 
 export default connect(mapStateToProps, { sendMessage })(ChatRoom);
