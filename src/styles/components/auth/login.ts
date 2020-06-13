@@ -13,10 +13,10 @@ export const login = StyleSheet.create({
         resizeMode: 'contain'
     },
     welcomeImg: {
-        marginVertical: 45,
+        marginVertical: 60,
         alignSelf: 'center',
-        width: '100%',
-        height: 300,
+        width: '90%',
+        height: 240,
         resizeMode: 'cover',
     }
 });

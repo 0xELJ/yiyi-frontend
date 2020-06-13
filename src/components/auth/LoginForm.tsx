@@ -47,7 +47,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ isSubmitting, onSubmit }) => {
                           error={errors.username}
                       />
                   </Section>
-                  <Section style={{ marginBottom: 30 }}>
+                  <Section style={{ marginBottom: 50 }}>
                       <InputField
                           value={values.room}
                           placeholder="Room"

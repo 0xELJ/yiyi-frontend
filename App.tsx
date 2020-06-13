@@ -15,6 +15,7 @@ import 'moment-timezone';
 import { useFonts, FiraSans_400Regular, FiraSans_600SemiBold } from '@expo-google-fonts/fira-sans';
 import { AppLoading } from 'expo';
 import { StatusBar } from 'react-native';
+import { chatMenu } from './src/styles/components/chat/chatMenu';
 
 Moment.globalTimezone = 'America/Mexico_City';
 StatusBar.setBarStyle('light-content', true);
@@ -39,7 +40,8 @@ export default function App() {
                 <Navigator
                     initialRouteName="Root"
                     drawerContent={props => <ChatMenu {...props} /> }
-                    drawerPosition="right">
+                    drawerPosition="right"
+                    drawerStyle={chatMenu.drawer}>
                     <Screen name="Root" component={Root} options={{ swipeEnabled: false }}/>
                 </Navigator>
             </NavigationContainer>

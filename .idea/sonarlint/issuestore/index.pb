@@ -117,3 +117,15 @@ V
 &src/styles/components/shared/inputs.ts,0/1/011927e381dc1f772b1cc08dbbe96b25c7926687
 J
 src/styles/base/shadows.ts,6/8/683ac1c4fed279e2f8992688bc437f9468dcdefc
+L
+src/types/props/RootProps.ts,0/7/072f25ce94d2852b6e7fae8777b271105caef6af
+V
+&src/components/shared/MainGradient.tsx,a/7/a7ae0ef6241035d6a820c2176f2c70566b65063d
+^
+.src/styles/components/chat/chatHeaderStyles.ts,d/8/d88d80f06435cfa46035e45d25f1640a0c60eb01
+E
+src/reducers/index.ts,0/b/0b38d8b3d74d7ffb1bd6f4d59a9060dbc6f8181c
+_
+/src/styles/components/chat/chatMessageStyles.ts,1/e/1eeb19ec895faac5283a1ec6d77b54316c7f5f58
+P
+ src/types/props/ChatRoomProps.ts,4/8/489994f31e27d918600008ee6c0cd07ec684928d

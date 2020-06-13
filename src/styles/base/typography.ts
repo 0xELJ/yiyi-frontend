@@ -24,7 +24,7 @@ export const typography = StyleSheet.create({
     h3: {
         fontFamily: fonts.semiBold,
         color: colors.greyDarkOne,
-        fontSize: 16,
+        fontSize: 18,
         lineHeight: 30,
         textAlign: 'center'
     },

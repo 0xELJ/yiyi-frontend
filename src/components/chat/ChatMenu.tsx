@@ -1,5 +1,5 @@
 import React from "react";
-import { Text } from "react-native";
+import { Text, View, ViewStyle } from "react-native";
 import { connect } from "react-redux";
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer'
 import { Button } from "../shared/Button";
@@ -8,6 +8,8 @@ import { leaveRoom } from "../../actions"
 import { ChatState } from "../../types/states/ChatState";
 import { ChatMenuProps } from "../../types/props/ChatMenuProps";
 import { chatMenu } from '../../styles/components/chat/chatMenu';
+import { MaterialIcons } from '@expo/vector-icons';
+import { Container } from '../shared/Container';
 
 const ChatMenu: React.FC<ChatMenuProps> = props => {
     const logout = () => {
@@ -17,22 +19,36 @@ const ChatMenu: React.FC<ChatMenuProps> = props => {
 
     const userList = () => {
         return props.chat.activeRoom.users.map(user => {
-           return <DrawerItem key={user.id} label={user.username} onPress={() => {}} />
+           return (
+               <View key={user.id} style={chatMenu.user}>
+                   <View style={chatMenu.statusIndicator} />
+                   <DrawerItem
+                       label={user.username}
+                       onPress={() => {}}
+                       style={chatMenu.username as ViewStyle}
+                   />
+               </View>
+           );
         });
     };
 
     return (
-        <DrawerContentScrollView>
-            <Section style={{ marginTop: 20, paddingLeft: 16 }}>
-                <Text style={chatMenu.header}>Sala "{props.chat.activeRoom.room}"</Text>
-            </Section>
-            {userList()}
-            <Section style={{ marginTop: 16, paddingHorizontal: 64 }}>
-                <Button onPress={logout} >
-                    <Text>Salir</Text>
+        <Container style={chatMenu.container}>
+            <DrawerContentScrollView>
+                <Section style={chatMenu.headerSection}>
+                    <MaterialIcons name="group" size={20} color={chatMenu.usersIcon.color} />
+                    <Text style={chatMenu.h3}>Users</Text>
+                </Section>
+                <Section  style={chatMenu.userList}>
+                    {userList()}
+                </Section>
+            </DrawerContentScrollView>
+            <Section style={chatMenu.footer}>
+                <Button onPress={logout}>
+                    <Text>LOGOUT</Text>
                 </Button>
             </Section>
-        </DrawerContentScrollView>
+        </Container>
     );
 };
 

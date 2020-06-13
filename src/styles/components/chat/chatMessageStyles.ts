@@ -44,7 +44,10 @@ export const messageContent = StyleSheet.create({
         alignSelf: 'flex-start',
         backgroundColor: colors.white,
         color: colors.greyDarkOne,
-        borderBottomLeftRadius: 0
+        borderBottomLeftRadius: 0,
+        borderWidth: 1,
+        borderColor: colors.greyLightOne
+
     }
 });
 
