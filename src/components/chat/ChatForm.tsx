@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import { chatRoom } from '../../styles/components/chat/chatRoom';
 import { InputField } from '../shared/InputField';
 import { MaterialIcons } from '@expo/vector-icons';

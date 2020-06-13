@@ -23,6 +23,7 @@ export const chatMenu = StyleSheet.create({
         color: colors.greyDarkOne
     },
     userList: {
+        flexDirection: 'column',
         marginTop: 0,
     },
     user: {
@@ -37,6 +38,7 @@ export const chatMenu = StyleSheet.create({
     },
     footer: {
         alignSelf: 'flex-end',
+        marginBottom: 30,
         paddingHorizontal: 16
     },
     username: {
