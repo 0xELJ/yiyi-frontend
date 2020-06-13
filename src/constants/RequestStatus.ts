@@ -1,6 +1,6 @@
 export enum RequestStatus {
     PENDING = 'isPending',
-    LOADING = 'isLoading',
+    INACTIVE = 'isInactive',
     SUCCESSFUL = 'isSuccessful',
     FAILED = 'isFailed',
 }

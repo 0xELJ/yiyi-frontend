@@ -1,11 +1,12 @@
 import React from 'react';
-import { Text, View, Modal } from 'react-native';
+import { Text, View, Modal, Image } from 'react-native';
 import { Section } from './Section';
 import { Button } from './Button';
-import { ConfirmModalState } from "../../types/states/ConfirmModalState";
+import { CustomModalState } from "../../types/states/CustomModalState";
 import { modal } from '../../styles/components/shared/modal';
+import errorImg from '../../assets/images/error.png';
 
-export const ConfirmModal: React.FC<ConfirmModalState> = props => {
+export const CustomModal: React.FC<CustomModalState> = props => {
     const { visible, onAccept, header, body, onClose = () => {} } = props;
 
     return (
@@ -15,13 +16,12 @@ export const ConfirmModal: React.FC<ConfirmModalState> = props => {
             onRequestClose={onClose}>
             <View style={modal.containerStyle}>
                 <View style={modal.content}>
-                    <Section style={modal.header}>
-                        <Text style={[modal.bodyText, modal.headerText]}>{header}</Text>
-                    </Section>
-                    <Section>
+                    <Image source={errorImg} style={modal.errorImg} />
+                    <Section style={modal.description}>
+                        <Text style={modal.headerText}>{header}</Text>
                         <Text style={modal.bodyText}>{body}</Text>
                     </Section>
-                    <Section>
+                    <Section style={modal.action}>
                         <Button onPress={onAccept}>Got it</Button>
                     </Section>
                 </View>

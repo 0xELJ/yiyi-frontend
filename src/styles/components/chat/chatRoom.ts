@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { colors } from '../../base/colors';
+import { shadows } from '../../base/shadows';
 
 export const chatRoom = StyleSheet.create({
     container: {
@@ -12,12 +13,10 @@ export const chatRoom = StyleSheet.create({
         flex: 1,
     },
     form: {
-        height: 100,
-        paddingTop: 16,
-        paddingBottom: 50,
+        height: 'auto',
         justifyContent: 'center',
         backgroundColor: colors.greyLightTwo,
-        marginBottom: 0,
+        marginBottom: 30
     },
     button: {
         height: 40,
@@ -26,6 +25,7 @@ export const chatRoom = StyleSheet.create({
         marginLeft: 12,
         paddingHorizontal: 16,
         borderRadius: 100,
-        backgroundColor: colors.greenDark
+        backgroundColor: colors.greenDark,
+        ...shadows.primary
     }
 });

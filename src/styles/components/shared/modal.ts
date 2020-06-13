@@ -1,19 +1,25 @@
 import { StyleSheet } from 'react-native';
+import { typography } from '../../base/typography';
+import { colors } from '../../base/colors';
 
 export const modal = StyleSheet.create({
-    header: {
-        borderBottomColor: 'rgba(0 , 0, 0, 0.1)',
-        borderBottomWidth: 1
+    errorImg: {
+        alignSelf: 'center',
+        width: 180,
+        height: 150,
+        resizeMode: 'cover',
+        marginBottom: 15
+    },
+    description: {
+        flexDirection: 'column',
+        justifyContent: 'center'
     },
     headerText: {
-        fontSize: 24,
-        fontWeight: '500'
+        ...typography.h3,
     },
     bodyText: {
-        flex: 1,
-        fontSize: 18,
-        textAlign: 'center',
-        lineHeight: 40
+        ...typography.body,
+        marginVertical: 15
     },
     containerStyle: {
         backgroundColor: 'rgba(0, 0, 0, 0.75)',
@@ -24,8 +30,11 @@ export const modal = StyleSheet.create({
     },
     content: {
         width: '80%',
-        padding: 8,
-        borderRadius: 8,
-        backgroundColor: '#fff'
+        padding: 24,
+        borderRadius: 16,
+        backgroundColor: colors.white
+    },
+    action: {
+        marginBottom: 0
     }
 });

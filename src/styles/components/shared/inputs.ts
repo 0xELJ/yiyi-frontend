@@ -2,6 +2,7 @@ import { StyleSheet, TextStyle, ViewStyle } from 'react-native';
 import { borders } from '../../base/borders';
 import { colors } from '../../base/colors';
 import { typography } from '../../base/typography';
+import { shadows } from '../../base/shadows';
 
 export const inputContainer: ViewStyle = {
     minHeight: 40,
@@ -13,6 +14,7 @@ const dimensions: ViewStyle = {
     height: 40,
     paddingHorizontal: 12,
     justifyContent: 'center',
+    backgroundColor: colors.white,
 };
 
 export const inputs = StyleSheet.create({

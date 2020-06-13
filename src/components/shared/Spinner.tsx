@@ -5,6 +5,6 @@ import { spinner } from '../../styles/components/shared/spinner';
 
 export const Spinner: React.FC<SpinnerProps> = ({ size }) => (
     <View style={spinner.container}>
-        <ActivityIndicator size={size || 'large'}/>
+        <ActivityIndicator size={size || 'large'} />
     </View>
 );

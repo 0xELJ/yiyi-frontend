@@ -1,5 +1,5 @@
 import { SocketState } from "../states/SocketState";
-import { ConfirmModalState } from "../states/ConfirmModalState";
+import { CustomModalState } from "../states/CustomModalState";
 
 export interface RootProps {
     navigation: any,
@@ -8,5 +8,5 @@ export interface RootProps {
     listenForRoomData(): void,
     listenForMessage(): void,
     hideModal(): void,
-    modal: ConfirmModalState,
+    modal: CustomModalState,
 }

@@ -1,4 +1,4 @@
-export interface ConfirmModalState {
+export interface CustomModalState {
     visible: boolean;
     header: string,
     body: string,

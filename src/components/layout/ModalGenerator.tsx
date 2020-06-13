@@ -1,17 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
 import { hideModal } from "../../actions";
-import { ConfirmModalState } from "../../types/states/ConfirmModalState";
-import { ConfirmModal } from "../shared/ConfirmModal";
+import { CustomModalState } from "../../types/states/CustomModalState";
+import { CustomModal } from "../shared/CustomModal";
 
-const ModalGenerator: React.FC<{ modal: ConfirmModalState, hideModal(): void }> = props => {
+const ModalGenerator: React.FC<{ modal: CustomModalState, hideModal(): void }> = props => {
     const handleOnAccept = () => {
         props.hideModal();
         props.modal.onAccept();
     };
 
     return (
-        <ConfirmModal
+        <CustomModal
             visible={props.modal.visible}
             header={props.modal.header}
             body={props.modal.body}
@@ -20,7 +20,7 @@ const ModalGenerator: React.FC<{ modal: ConfirmModalState, hideModal(): void }> 
     );
 };
 
-const mapStateToProps = (state: { modal: ConfirmModalState }) => {
+const mapStateToProps = (state: { modal: CustomModalState }) => {
     return { modal: state.modal };
 };
 

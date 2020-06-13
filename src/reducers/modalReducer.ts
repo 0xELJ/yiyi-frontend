@@ -1,8 +1,8 @@
 import { Action } from "../types/entities/Action";
 import { ActionTypes } from "../constants/ActionTypes";
-import { ConfirmModalState } from "../types/states/ConfirmModalState";
+import { CustomModalState } from "../types/states/CustomModalState";
 
-const INITIAL_STATE: ConfirmModalState = {
+const INITIAL_STATE: CustomModalState = {
     visible: false,
     header: '',
     body: '',
@@ -10,7 +10,7 @@ const INITIAL_STATE: ConfirmModalState = {
     onClose: () => {}
 };
 
-export function modalReducer(state = INITIAL_STATE, action: Action): ConfirmModalState {
+export function modalReducer(state = INITIAL_STATE, action: Action): CustomModalState {
     switch (action.type) {
         case ActionTypes.MODAL_SHOW:
             return {

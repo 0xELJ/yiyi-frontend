@@ -26,7 +26,7 @@ const ChatRoom: React.FC<ChatRoomProps> = (props) => {
     };
 
     return (
-        <KeyboardAvoidingView behavior={getKeyboardBehavior()} keyboardVerticalOffset={60}>
+        <KeyboardAvoidingView behavior={getKeyboardBehavior()} keyboardVerticalOffset={72}>
             <Container style={chatRoom.container}>
                 <Section style={chatRoom.messages}>
                     <ChatMessageList messages={props.chat.messages} currentUserId={props.userId} />

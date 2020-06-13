@@ -4,7 +4,7 @@ import { ActionTypes } from "../constants/ActionTypes";
 import { RequestStatus } from '../constants/RequestStatus';
 
 const INITIAL_STATE: AuthState = {
-    status: RequestStatus.PENDING,
+    status: RequestStatus.INACTIVE,
     error: '',
     currentUser: {
         id: '',
@@ -18,7 +18,7 @@ export function authReducer(state = INITIAL_STATE, action: Action): AuthState {
         case ActionTypes.AUTH_JOIN_ROOM_PENDING:
             return {
                 ...state,
-                status: RequestStatus.LOADING,
+                status: RequestStatus.PENDING,
                 currentUser: INITIAL_STATE.currentUser,
                 error: ''
             };
