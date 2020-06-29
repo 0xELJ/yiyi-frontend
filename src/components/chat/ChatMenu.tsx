@@ -20,10 +20,10 @@ const ChatMenu: React.FC<ChatMenuProps> = props => {
     const userList = () => {
         return props.chat.activeRoom.users.map(user => {
            return (
-               <View key={user.id} style={chatMenu.user}>
+               <View key={user} style={chatMenu.user}>
                    <View style={chatMenu.statusIndicator} />
                    <DrawerItem
-                       label={user.username}
+                       label={user}
                        onPress={() => {}}
                        style={chatMenu.username as ViewStyle}
                    />

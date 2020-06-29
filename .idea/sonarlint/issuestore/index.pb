@@ -129,3 +129,14 @@ _
 /src/styles/components/chat/chatMessageStyles.ts,1/e/1eeb19ec895faac5283a1ec6d77b54316c7f5f58
 P
  src/types/props/ChatRoomProps.ts,4/8/489994f31e27d918600008ee6c0cd07ec684928d
+:
+
+.gitignore,a/5/a5cc2925ca8258af241be7e5b0381edf30266302
+N
+src/constants/RequestStatus.ts,a/d/ad68765aa76d9741eda1703f311ed5a9b4c2ed9b
+T
+$src/types/states/CustomModalState.ts,a/a/aa4d2a867bfb5376492f835f0868b486f2acffc1
+U
+%src/components/shared/CustomModal.tsx,9/c/9c17f874e78cf3cf1ccab0432b9b6a9124693a2a
+U
+%src/styles/components/shared/modal.ts,6/b/6bcacfd33c4ffd41f6ae19159985f5f95ce95c56
