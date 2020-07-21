@@ -46,7 +46,7 @@ To start the local development server with Expo CLI, type the following command:
 $ yarn start
 ```
 
-Expo CLI starts Metro Bundler. It also pops up Expo Dev Tools, a graphical interface for Expo CLI.
+*Expo CLI* starts *Metro Bundler*. It also pops up *Expo Dev Tools*, a graphical interface for *Expo CLI*.
 
 Now, it's possible to open the project on multiple devices simultaneously through *Expo Client*. Go ahead and try it on an iPhone and Android phone: 
 
