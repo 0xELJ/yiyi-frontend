@@ -1,12 +1,12 @@
 import React from "react";
 import { TouchableOpacity } from "react-native";
-import { AntDesign as AntDesignIcon } from "@expo/vector-icons";
-import { ButtonProps } from "../../types/ButtonProps";
+import { MaterialIcons } from "@expo/vector-icons";
+import { ButtonProps } from "../../types/props/ButtonProps";
 
 export const ChatMenuButton: React.FC<ButtonProps> = (props) => {
     return (
-        <TouchableOpacity onPress={props.onPress} style={{ paddingHorizontal: 16 }}>
-            <AntDesignIcon name="team" size={24} color="black" />
+        <TouchableOpacity onPress={props.onPress} style={{ marginRight: 16 }}>
+            <MaterialIcons name="group" size={24} color="white" />
         </TouchableOpacity>
     );
 };

@@ -1,53 +1,55 @@
-import React from 'react';
-import { View, Text, TextInput, StyleSheet } from 'react-native';
-import { InputFieldProps } from "../../types/InputFieldProps";
+import React, { useEffect, useState } from 'react';
+import { View, Text, TextInput } from 'react-native';
+import { InputFieldProps } from "../../types/props/InputFieldProps";
+import { inputContainer, errorText, inputs } from '../../styles/components/shared/inputs';
+import { typography } from '../../styles/base/typography';
 
 export const InputField: React.FC<InputFieldProps> = props => {
-    const { label = '', hideLabel = false, onChangeText, value, placeholder, secureTextEntry } = props;
-    const { containerStyle, inputStyle, labelStyle } = styles;
+    const { onChangeText, onBlur, value, placeholder, secureTextEntry, touched, error, rounded = false } = props;
+    const [hasError, setHasError] = useState(false);
 
-    const renderLabel = () => {
-        if (hideLabel) {
-            return null;
+    useEffect(() => {
+        if (touched && error) {
+            setHasError(true);
+        } else {
+            setHasError(false);
         }
-        return <Text style={labelStyle}>{label}</Text>;
+    }, [touched, error]);
+
+    const getInputStyles = () => {
+        let styles;
+        if (hasError) {
+            styles = inputs.error;
+        } else {
+            styles = inputs.base;
+        }
+        if (rounded) {
+            styles = { ...styles, ...inputs.rounded };
+        }
+        return styles;
+    };
+
+    const renderError = () => {
+        if (hasError) {
+            return <Text style={errorText}>{error}</Text>
+        }
+        return null;
     };
 
     return (
-        <View style={containerStyle}>
-            {renderLabel()}
-            <TextInput
-                secureTextEntry={secureTextEntry}
-                autoCorrect={false}
-                placeholder={placeholder}
-                value={value}
-                onChangeText={onChangeText}
-                style={inputStyle}
-            />
+        <View style={inputContainer}>
+            <View style={getInputStyles()}>
+                <TextInput
+                    secureTextEntry={secureTextEntry || false}
+                    autoCorrect={false}
+                    placeholder={placeholder}
+                    value={value}
+                    onChangeText={onChangeText}
+                    onBlur={onBlur}
+                    style={typography.body}
+                />
+            </View>
+            {renderError()}
         </View>
     );
 };
-
-
-const styles = StyleSheet.create({
-    containerStyle: {
-        height: 45,
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    inputStyle: {
-        color: '#000',
-        paddingRight: 5,
-        paddingLeft: 5,
-        fontSize: 18,
-        lineHeight: 20,
-        flex: 2
-    },
-    labelStyle: {
-        fontSize: 18,
-        paddingLeft: 20,
-        flex: 1
-    }
-});

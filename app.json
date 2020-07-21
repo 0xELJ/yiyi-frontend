@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "yiyi-chat",
-    "slug": "yiyi-chat",
+    "name": "yiyi",
+    "slug": "yiyi",
     "platforms": [
       "ios",
       "android",

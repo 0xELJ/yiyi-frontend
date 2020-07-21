@@ -1,8 +1,8 @@
-import { ActionTypes } from "../types/ActionTypes";
-import { ChatEvent } from "../types/ChatEvent";
-import { RoomData } from "../types/RoomData";
-import { Message } from "../types/Message";
-import { SocketClient } from "../types/SocketClient";
+import { ActionTypes } from "../constants/ActionTypes";
+import { ChatEvent } from "../constants/ChatEvent";
+import { RoomData } from "../types/entities/RoomData";
+import { Message } from "../types/entities/Message";
+import { SocketClient } from "../types/entities/SocketClient";
 import { Dispatch } from "redux";
 
 export function listenForRoomData() {
@@ -37,10 +37,9 @@ export function listenForMessage() {
             promise: (socket: SocketClient) => socket.on(ChatEvent.MESSAGE, chatUpdate)
         })
     }
-
 }
 
-export function sendMessage(message: Message) {
+export function sendMessage(message: string) {
     return {
         type: 'socket',
         types: [
@@ -50,11 +49,4 @@ export function sendMessage(message: Message) {
         ],
         promise: (socket: SocketClient) => socket.emit(ChatEvent.SEND_MESSAGE, message)
     }
-}
-
-export function messageChanged(message: string) {
-    return {
-        type: ActionTypes.CHAT_MESSAGE_CHANGED,
-        payload: message
-    };
 }

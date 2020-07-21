@@ -1,14 +1,13 @@
-import { Action } from "../types/Action";
-import { ChatState } from "../types/ChatState";
-import { ActionTypes } from "../types/ActionTypes";
+import { Action } from "../types/entities/Action";
+import { ChatState } from "../types/states/ChatState";
+import { ActionTypes } from "../constants/ActionTypes";
 
 const INITIAL_STATE: ChatState = {
     activeRoom: {
         room: '',
         users: []
     },
-    messages: [],
-    message: ''
+    messages: []
 };
 
 export function chatReducer(state = INITIAL_STATE, action: Action): ChatState {
@@ -22,11 +21,6 @@ export function chatReducer(state = INITIAL_STATE, action: Action): ChatState {
             return {
                 ...state,
                 messages: [...state.messages, action.payload]
-            };
-        case ActionTypes.CHAT_MESSAGE_CHANGED:
-            return {
-                ...state,
-                message: action.payload
             };
         case ActionTypes.SOCKET_LEAVE_ROOM_SUCCESS:
             return { ...INITIAL_STATE };

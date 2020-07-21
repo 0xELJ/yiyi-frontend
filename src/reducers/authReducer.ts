@@ -1,44 +1,38 @@
-import { Action } from "../types/Action";
-import { AuthState } from "../types/AuthState";
-import { ActionTypes } from "../types/ActionTypes";
+import { Action } from "../types/entities/Action";
+import { AuthState } from "../types/states/AuthState";
+import { ActionTypes } from "../constants/ActionTypes";
+import { RequestStatus } from '../constants/RequestStatus';
 
 const INITIAL_STATE: AuthState = {
-    username: '',
-    room: '',
-    loading: false,
-    error: ''
+    status: RequestStatus.INACTIVE,
+    error: '',
+    currentUser: {
+        id: '',
+        username: '',
+        room: ''
+    }
 };
 
 export function authReducer(state = INITIAL_STATE, action: Action): AuthState {
     switch (action.type) {
-        case ActionTypes.AUTH_USERNAME_CHANGED:
-            return {
-                ...state,
-                username: action.payload
-            };
-        case ActionTypes.AUTH_ROOM_CHANGED:
-            return {
-                ...state,
-                room: action.payload
-            };
         case ActionTypes.AUTH_JOIN_ROOM_PENDING:
             return {
                 ...state,
-                loading: true,
+                status: RequestStatus.PENDING,
+                currentUser: INITIAL_STATE.currentUser,
                 error: ''
             };
         case ActionTypes.AUTH_JOIN_ROOM_SUCCESS:
             return {
                 ...state,
-                loading: false,
-                username: '',
-                room: '',
+                status: RequestStatus.SUCCESSFUL,
+                currentUser: action.payload,
             };
         case ActionTypes.AUTH_JOIN_ROOM_ERROR:
             return {
                 ...state,
-                loading: false,
-                error: ''
+                status: RequestStatus.FAILED,
+                error: action.payload
             };
         default:
             return state;

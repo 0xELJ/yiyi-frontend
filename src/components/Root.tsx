@@ -1,29 +1,27 @@
 import React, { useEffect, useState } from "react";
 import ChatRoom from "./chat/ChatRoom";
+import Login from './auth/Login';
 import { createStackNavigator } from "@react-navigation/stack";
-import LoginForm from "./auth/LoginForm";
 import { ChatMenuButton } from "./chat/ChatMenuButton";
 import { connect } from "react-redux";
 import { connect as connectSocket, listenForMessage, listenForRoomData } from "../actions";
-import { SocketState } from "../types/SocketState";
+import { SocketState } from "../types/states/SocketState";
 import { Spinner } from "./shared/Spinner";
-import { ConfirmModal } from "./shared/ConfirmModal";
-import { RootProps } from "../types/RootProps";
+import { RootProps } from "../types/props/RootProps";
+import ModalGenerator from "./layout/ModalGenerator";
+import MainGradient from './shared/MainGradient';
+import { headerStyles } from '../styles/components/chat/chatHeaderStyles';
 
 const { Navigator, Screen } = createStackNavigator();
 
 const Root: React.FC<RootProps> = (props) => {
-    const [showModal, setShowModal] = useState(false);
-    const [showSpinner, setShowSpinner] = useState(false);
+    const [showSpinner, setShowSpinner] = useState<boolean>(false);
 
     useEffect(() => {
         props.connectSocket();
     }, []);
 
     useEffect(() => {
-        if (props.socket.connectionError && props.socket.connectionError.length) {
-            setShowModal(true);
-        }
         if (props.socket.isConnected) {
             initSocketListeners();
         }
@@ -35,17 +33,12 @@ const Root: React.FC<RootProps> = (props) => {
         props.listenForMessage();
     };
 
-    const retryConnection = () => {
-        setShowModal(false);
-        props.connectSocket();
-    };
-
     const toggleChatMenu = () => {
         props.navigation.toggleDrawer();
     };
 
     if (showSpinner) {
-        return <Spinner size="large"/>;
+        return <Spinner size="large" />;
     }
 
     return (
@@ -53,11 +46,10 @@ const Root: React.FC<RootProps> = (props) => {
             <Navigator initialRouteName="Login">
                 <Screen
                     name="Login"
-                    component={LoginForm}
+                    component={Login}
                     options={{
-                        title: 'Registro',
                         gestureEnabled: false,
-                        headerLeft: () => null
+                        headerShown: false
                     }}
                 />
                 <Screen
@@ -65,22 +57,22 @@ const Root: React.FC<RootProps> = (props) => {
                     component={ChatRoom}
                     options={{
                         gestureEnabled: false,
-                        headerLeft: () => <ChatMenuButton onPress={toggleChatMenu} />
+                        headerTitle: 'YiYi',
+                        headerTitleAlign: 'left',
+                        headerTitleStyle: headerStyles.title,
+                        headerBackground: () => <MainGradient style={headerStyles.background} />,
+                        headerRight: () => <ChatMenuButton onPress={toggleChatMenu} />,
+                        headerLeft: () => null,
                     }}
                 />
             </Navigator>
-            <ConfirmModal
-                visible={showModal}
-                header="Error"
-                body="Ocurrió un error al conectarse con el servidor"
-                accept="Reintentar"
-                onAccept={retryConnection} />
+            <ModalGenerator />
         </React.Fragment>
     );
 };
 
 const mapStateToProps = (state: { socket: SocketState }) => {
-    return { socket: state.socket }
+    return { socket: state.socket };
 };
 
 export default connect(mapStateToProps, { connectSocket, listenForRoomData, listenForMessage })(Root);

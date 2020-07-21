@@ -1,106 +1,46 @@
 import React from 'react';
-import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { KeyboardAvoidingView, Platform } from "react-native";
 import { Container } from "../shared/Container";
 import { Section } from "../shared/Section";
-import { InputField } from "../shared/InputField";
-import { MaterialIcons } from "@expo/vector-icons";
 import { connect } from "react-redux";
-import { ChatState } from "../../types/ChatState";
-import { Message } from "../../types/Message";
-import { messageChanged, sendMessage } from "../../actions";
+import { ChatState } from "../../types/states/ChatState";
+import { sendMessage } from "../../actions";
+import { ChatMessageList } from "./ChatMessageList";
+import { ChatRoomProps } from '../../types/props/ChatRoomProps';
+import { chatRoom } from '../../styles/components/chat/chatRoom';
+import { MessageData } from '../../types/entities/MessageData';
+import ChatForm from './ChatForm';
+import { AuthState } from '../../types/states/AuthState';
 
-const ChatRoom: React.FC<any> = (props) => {
-    const ChatMessageList = () => {
-        if (props.chat.messages && props.chat.messages.length) {
-            return props.chat.messages.map((message: Message, index: number) => {
-                return (
-                    <View key={message.createdAt + index}>
-                        <Text>{message.username}</Text>
-                        <Text>{message.message}</Text>
-                        <Text>{message.createdAt}</Text>
-                    </View>
-                );
-            });
+const ChatRoom: React.FC<ChatRoomProps> = (props) => {
+    const getKeyboardBehavior = () => {
+        if (Platform.OS === "ios") {
+            return 'padding';
+        } else {
+            return undefined;
         }
-
-        return null;
     };
 
-    const sendMessage = () => {
-        props.sendMessage(props.chat.message);
-        props.messageChanged('');
+    const onSendMessage = (values: MessageData) => {
+        props.sendMessage(values.message);
     };
 
     return (
-        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : undefined} keyboardVerticalOffset={60}>
-            <Container style={styles.container}>
-            <Section style={styles.messages}>
-                <ScrollView>
-                    {ChatMessageList()}
-                </ScrollView>
-            </Section>
-            <Section style={styles.inputContainer}>
-                <View style={styles.input}>
-                    <InputField
-                        hideLabel={true}
-                        value={props.chat.message}
-                        placeholder="Mensaje"
-                        onChangeText={props.messageChanged}
-                    />
-                </View>
-                <TouchableOpacity onPress={sendMessage} style={styles.icon}>
-                    <MaterialIcons name="send" size={16} color="white" />
-                </TouchableOpacity>
-            </Section>
+        <KeyboardAvoidingView behavior={getKeyboardBehavior()} keyboardVerticalOffset={72}>
+            <Container style={chatRoom.container}>
+                <Section style={chatRoom.messages}>
+                    <ChatMessageList messages={props.chat.messages} currentUserId={props.userId} />
+                </Section>
+                <Section style={chatRoom.form}>
+                    <ChatForm onSubmit={onSendMessage}/>
+                </Section>
             </Container>
         </KeyboardAvoidingView>
     );
 };
 
-const styles = StyleSheet.create({
-    container: {
-        height: '100%',
-        padding: 0,
-        paddingTop: 16,
-    },
-    messages: {
-        flex: 1,
-        marginHorizontal: 16,
-        borderWidth: 1,
-        borderColor: 'rgba(0, 0, 0, 0.3)',
-        borderRadius: 5,
-    },
-    inputContainer: {
-        height: 100,
-        paddingTop: 16,
-        paddingBottom: 64,
-        paddingHorizontal: 16,
-        justifyContent: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.08)',
-        marginBottom: 0,
-    },
-    input: {
-        flex: 1,
-        height: 40,
-        paddingHorizontal: 8,
-        backgroundColor: '#fff',
-        borderColor: 'rgba(0, 0, 0, 0.3)',
-        borderWidth: 1,
-        borderRadius: 100
-    },
-    icon: {
-        height: 40,
-        marginLeft: 8,
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingHorizontal: 16,
-        borderRadius: 100,
-        backgroundColor: 'blue'
-    }
-});
-
-const mapStateToProps = (state: { chat: ChatState }) => {
-    return { chat: state.chat };
+const mapStateToProps = (state: { chat: ChatState, auth: AuthState }) => {
+    return { chat: state.chat, userId: state.auth.currentUser.id };
 };
 
-export default connect(mapStateToProps, { messageChanged, sendMessage  })(ChatRoom)
+export default connect(mapStateToProps, { sendMessage })(ChatRoom);
