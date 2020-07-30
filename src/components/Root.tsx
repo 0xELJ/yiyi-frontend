@@ -1,36 +1,42 @@
 import React, { useEffect, useState } from "react";
+import { createStackNavigator } from "@react-navigation/stack";
+import { useGlobalState } from '../hooks/useGlobalState';
+import { useActions } from '../hooks/useActions';
+import { connect as connectSocket, listenForMessage, listenForRoomData } from "../actions";
 import ChatRoom from "./chat/ChatRoom";
 import Login from './auth/Login';
-import { createStackNavigator } from "@react-navigation/stack";
 import { ChatMenuButton } from "./chat/ChatMenuButton";
-import { connect } from "react-redux";
-import { connect as connectSocket, listenForMessage, listenForRoomData } from "../actions";
-import { SocketState } from "../types/states/SocketState";
 import { Spinner } from "./shared/Spinner";
 import { RootProps } from "../types/props/RootProps";
 import ModalGenerator from "./layout/ModalGenerator";
 import MainGradient from './shared/MainGradient';
 import { headerStyles } from '../styles/components/chat/chatHeaderStyles';
 
-const { Navigator, Screen } = createStackNavigator();
+const { Navigator, Screen } = createStackNavigator<RootStackParamList>();
 
 const Root: React.FC<RootProps> = (props) => {
+    const socket = useGlobalState(({ socket }) => socket);
+    const [connect, subscribeToRoomData, subscribeToMessages] = useActions([
+        connectSocket,
+        listenForRoomData,
+        listenForMessage
+    ], []);
     const [showSpinner, setShowSpinner] = useState<boolean>(false);
 
     useEffect(() => {
-        props.connectSocket();
+        connect();
     }, []);
 
     useEffect(() => {
-        if (props.socket.isConnected) {
+        if (socket.isConnected) {
             initSocketListeners();
         }
-        setShowSpinner(props.socket.isConnecting);
-    }, [props.socket]);
+        setShowSpinner(socket.isConnecting);
+    }, [socket]);
 
     const initSocketListeners = () => {
-        props.listenForRoomData();
-        props.listenForMessage();
+        subscribeToRoomData();
+        subscribeToMessages();
     };
 
     const toggleChatMenu = () => {
@@ -71,8 +77,4 @@ const Root: React.FC<RootProps> = (props) => {
     );
 };
 
-const mapStateToProps = (state: { socket: SocketState }) => {
-    return { socket: state.socket };
-};
-
-export default connect(mapStateToProps, { connectSocket, listenForRoomData, listenForMessage })(Root);
+export default Root;

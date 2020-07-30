@@ -1,0 +1,3 @@
+type RootDrawerParamList = {
+    Root: undefined;
+};

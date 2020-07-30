@@ -1,12 +1,7 @@
-import { SocketState } from "../states/SocketState";
-import { CustomModalState } from "../states/CustomModalState";
+import { DrawerNavigationProp } from '@react-navigation/drawer/lib/typescript/src/types';
+
+type RootScreenNavProp = DrawerNavigationProp<RootStackParamList, 'Login'>;
 
 export interface RootProps {
-    navigation: any,
-    socket: SocketState,
-    connectSocket(): void,
-    listenForRoomData(): void,
-    listenForMessage(): void,
-    hideModal(): void,
-    modal: CustomModalState,
+    navigation: RootScreenNavProp;
 }

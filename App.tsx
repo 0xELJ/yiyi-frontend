@@ -22,7 +22,7 @@ StatusBar.setBarStyle('light-content', true);
 
 const socket = new SocketClient();
 const store = createStore(rootReducer, {}, applyMiddleware(ReduxThunk, socketMiddleware(socket)));
-const { Navigator, Screen } = createDrawerNavigator();
+const { Navigator, Screen } = createDrawerNavigator<RootDrawerParamList>();
 
 export default function App() {
     const [fontsLoaded] = useFonts({
