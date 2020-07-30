@@ -38,7 +38,7 @@ $ yarn install
 
 At the end of the installation, the environment will be ready to be run. Also, it's possible to change the environment variables by opening and editing the [.env file](.env).
 
-### Execution
+## Execution
 
 To start the local development server with Expo CLI, type the following command:
 

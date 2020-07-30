@@ -1,24 +1,27 @@
 import React from "react";
 import { Text, View, ViewStyle } from "react-native";
-import { connect } from "react-redux";
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer'
+import { useGlobalState } from '../../hooks/useGlobalState';
+import { useActions } from '../../hooks/useActions';
 import { Button } from "../shared/Button";
 import { Section } from "../shared/Section";
 import { leaveRoom } from "../../actions"
-import { ChatState } from "../../types/states/ChatState";
-import { ChatMenuProps } from "../../types/props/ChatMenuProps";
 import { chatMenu } from '../../styles/components/chat/chatMenu';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Container } from '../shared/Container';
+import { DrawerContentComponentProps } from '@react-navigation/drawer/lib/typescript/src/types';
 
-const ChatMenu: React.FC<ChatMenuProps> = props => {
+const ChatMenu: React.FC<DrawerContentComponentProps> = props => {
+    const chat = useGlobalState(({ chat }) => chat);
+    const leave = useActions(leaveRoom, []);
+
     const logout = () => {
-        props.leaveRoom(props.chat.activeRoom.room);
+        leave(chat.activeRoom.room);
         props.navigation.navigate('Login');
     };
 
     const userList = () => {
-        return props.chat.activeRoom.users.map(user => {
+        return chat.activeRoom.users.map(user => {
            return (
                <View key={user} style={chatMenu.user}>
                    <View style={chatMenu.statusIndicator} />
@@ -52,8 +55,4 @@ const ChatMenu: React.FC<ChatMenuProps> = props => {
     );
 };
 
-const mapStateToProps = (state: { chat: ChatState }) => {
-    return { chat: state.chat };
-};
-
-export default connect(mapStateToProps, { leaveRoom })(ChatMenu);
+export default ChatMenu;

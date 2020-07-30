@@ -2,17 +2,19 @@ import React from 'react';
 import { KeyboardAvoidingView, Platform } from "react-native";
 import { Container } from "../shared/Container";
 import { Section } from "../shared/Section";
-import { connect } from "react-redux";
-import { ChatState } from "../../types/states/ChatState";
 import { sendMessage } from "../../actions";
 import { ChatMessageList } from "./ChatMessageList";
-import { ChatRoomProps } from '../../types/props/ChatRoomProps';
 import { chatRoom } from '../../styles/components/chat/chatRoom';
 import { MessageData } from '../../types/entities/MessageData';
 import ChatForm from './ChatForm';
-import { AuthState } from '../../types/states/AuthState';
+import { useGlobalState } from '../../hooks/useGlobalState';
+import { useActions } from '../../hooks/useActions';
 
-const ChatRoom: React.FC<ChatRoomProps> = (props) => {
+const ChatRoom: React.FC = () => {
+    const auth = useGlobalState(({ auth }) => auth);
+    const chat = useGlobalState(({ chat }) => chat);
+    const sendMsg = useActions(sendMessage, []);
+
     const getKeyboardBehavior = () => {
         if (Platform.OS === "ios") {
             return 'padding';
@@ -22,14 +24,14 @@ const ChatRoom: React.FC<ChatRoomProps> = (props) => {
     };
 
     const onSendMessage = (values: MessageData) => {
-        props.sendMessage(values.message);
+        sendMsg(values.message);
     };
 
     return (
         <KeyboardAvoidingView behavior={getKeyboardBehavior()} keyboardVerticalOffset={72}>
             <Container style={chatRoom.container}>
                 <Section style={chatRoom.messages}>
-                    <ChatMessageList messages={props.chat.messages} currentUserId={props.userId} />
+                    <ChatMessageList messages={chat.messages} currentUserId={auth.currentUser.id} />
                 </Section>
                 <Section style={chatRoom.form}>
                     <ChatForm onSubmit={onSendMessage}/>
@@ -39,8 +41,4 @@ const ChatRoom: React.FC<ChatRoomProps> = (props) => {
     );
 };
 
-const mapStateToProps = (state: { chat: ChatState, auth: AuthState }) => {
-    return { chat: state.chat, userId: state.auth.currentUser.id };
-};
-
-export default connect(mapStateToProps, { sendMessage })(ChatRoom);
+export default ChatRoom;
